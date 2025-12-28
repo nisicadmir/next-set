@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -13,8 +15,25 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   ThemeMode _themeMode = ThemeMode.light;
+  static const String _themePrefKey = 'isDarkMode';
 
-  void _toggleTheme(bool isDark) {
+  @override
+  void initState() {
+    super.initState();
+    _loadThemePreference();
+  }
+
+  Future<void> _loadThemePreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isDark = prefs.getBool(_themePrefKey) ?? false;
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
+  Future<void> _toggleTheme(bool isDark) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_themePrefKey, isDark);
     setState(() {
       _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     });
@@ -52,10 +71,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
+    // Get the current theme mode from the context
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -109,11 +129,8 @@ class _HomePageState extends State<HomePage> {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Switch(
-                    value: _isDarkMode,
+                    value: isDarkMode,
                     onChanged: (value) {
-                      setState(() {
-                        _isDarkMode = value;
-                      });
                       widget.onThemeChanged(value);
                     },
                   ),
