@@ -4,24 +4,47 @@ void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void _toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'NextSet',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.white,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: _themeMode,
+      home: HomePage(onThemeChanged: _toggleTheme),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(bool) onThemeChanged;
+
+  const HomePage({super.key, required this.onThemeChanged});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,6 +52,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +109,12 @@ class _HomePageState extends State<HomePage> {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Switch(
-                    value: false,
+                    value: _isDarkMode,
                     onChanged: (value) {
-                      // TODO: Implement theme switching functionality
+                      setState(() {
+                        _isDarkMode = value;
+                      });
+                      widget.onThemeChanged(value);
                     },
                   ),
                 ],
