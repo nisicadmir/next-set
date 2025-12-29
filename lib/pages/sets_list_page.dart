@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'create_edit_set_page.dart';
+import 'run_set_page.dart';
 import '../models/workout_set.dart';
 import '../services/set_storage_service.dart';
 
@@ -135,93 +136,105 @@ class _SetsListPageState extends State<SetsListPage> {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Set name
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    set.name,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () {
+          _runSet(set);
+        },
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Set name
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      set.name,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                // Action buttons
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        _editSet(set);
-                      },
-                      tooltip: 'Edit',
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        _confirmDelete(set);
-                      },
-                      tooltip: 'Delete',
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-
-            // Set details
-            Row(
-              children: [
-                // Number of sets
-                Expanded(
-                  child: Row(
+                  // Action buttons
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.repeat,
-                        size: 20,
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          _editSet(set);
+                        },
+                        tooltip: 'Edit',
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${set.numberOfSets} sets',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          _confirmDelete(set);
+                        },
+                        tooltip: 'Delete',
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     ],
                   ),
-                ),
+                ],
+              ),
+              const SizedBox(height: 12),
 
-                // Time per set
-                Expanded(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.timer,
-                        size: 20,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        timeDisplay,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ],
+              // Set details
+              Row(
+                children: [
+                  // Number of sets
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.repeat,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${set.numberOfSets} sets',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+
+                  // Time per set
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.timer,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          timeDisplay,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  void _runSet(WorkoutSet set) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => RunSetPage(workoutSet: set)),
     );
   }
 
