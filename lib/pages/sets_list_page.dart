@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'create_edit_set_page.dart';
+import '../models/workout_set.dart';
+import '../services/set_storage_service.dart';
 
 class SetsListPage extends StatefulWidget {
   const SetsListPage({super.key});
@@ -9,11 +11,55 @@ class SetsListPage extends StatefulWidget {
 }
 
 class _SetsListPageState extends State<SetsListPage> {
-  // TODO: This will be replaced with actual data from local storage
-  final List<Map<String, dynamic>> _sets = [];
+  final SetStorageService _storageService = SetStorageService();
+  List<WorkoutSet> _sets = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSets();
+  }
+
+  Future<void> _loadSets() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final sets = await _storageService.getAllSets();
+
+      if (mounted) {
+        setState(() {
+          _sets = sets;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _sets = [];
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error loading sets: $e')));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('All Sets'),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Sets'),
@@ -26,11 +72,8 @@ class _SetsListPageState extends State<SetsListPage> {
             MaterialPageRoute(builder: (context) => const CreateEditSetPage()),
           );
 
-          // TODO: Add the returned set data to the list and save to storage
           if (result != null && mounted) {
-            setState(() {
-              _sets.add(result);
-            });
+            await _loadSets();
           }
         },
         icon: const Icon(Icons.add),
@@ -76,20 +119,15 @@ class _SetsListPageState extends State<SetsListPage> {
       itemCount: _sets.length,
       itemBuilder: (context, index) {
         final set = _sets[index];
-        return _buildSetCard(set, index);
+        return _buildSetCard(set);
       },
     );
   }
 
-  Widget _buildSetCard(Map<String, dynamic> set, int index) {
-    // Extract set data
-    final String name = set['name'] ?? 'Unnamed Set';
-    final int numberOfSets = set['numberOfSets'] ?? 0;
-    final int secondsPerSet = set['secondsPerSet'] ?? 0;
-
+  Widget _buildSetCard(WorkoutSet set) {
     // Convert seconds to minutes and seconds for display
-    final int minutes = secondsPerSet ~/ 60;
-    final int seconds = secondsPerSet % 60;
+    final int minutes = set.secondsPerSet ~/ 60;
+    final int seconds = set.secondsPerSet % 60;
     final String timeDisplay = minutes > 0
         ? '${minutes}m ${seconds}s'
         : '${seconds}s';
@@ -108,7 +146,7 @@ class _SetsListPageState extends State<SetsListPage> {
               children: [
                 Expanded(
                   child: Text(
-                    name,
+                    set.name,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -122,7 +160,7 @@ class _SetsListPageState extends State<SetsListPage> {
                     IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        _editSet(index);
+                        _editSet(set);
                       },
                       tooltip: 'Edit',
                       color: Theme.of(context).colorScheme.primary,
@@ -130,7 +168,7 @@ class _SetsListPageState extends State<SetsListPage> {
                     IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        _confirmDelete(index, name);
+                        _confirmDelete(set);
                       },
                       tooltip: 'Delete',
                       color: Theme.of(context).colorScheme.error,
@@ -155,7 +193,7 @@ class _SetsListPageState extends State<SetsListPage> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '$numberOfSets sets',
+                        '${set.numberOfSets} sets',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
@@ -187,27 +225,24 @@ class _SetsListPageState extends State<SetsListPage> {
     );
   }
 
-  void _editSet(int index) async {
+  void _editSet(WorkoutSet set) async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => CreateEditSetPage(existingSet: _sets[index]),
+        builder: (context) => CreateEditSetPage(existingSet: set),
       ),
     );
 
-    // TODO: Update the set data in storage
     if (result != null && mounted) {
-      setState(() {
-        _sets[index] = result;
-      });
+      await _loadSets();
     }
   }
 
-  void _confirmDelete(int index, String name) {
+  void _confirmDelete(WorkoutSet set) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Set'),
-        content: Text('Are you sure you want to delete "$name"?'),
+        content: Text('Are you sure you want to delete "${set.name}"?'),
         actions: [
           TextButton(
             onPressed: () {
@@ -217,7 +252,7 @@ class _SetsListPageState extends State<SetsListPage> {
           ),
           TextButton(
             onPressed: () {
-              _deleteSet(index);
+              _deleteSet(set.id);
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
@@ -230,13 +265,14 @@ class _SetsListPageState extends State<SetsListPage> {
     );
   }
 
-  void _deleteSet(int index) {
-    setState(() {
-      _sets.removeAt(index);
-    });
+  Future<void> _deleteSet(String id) async {
+    await _storageService.deleteSet(id);
+    await _loadSets();
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Set deleted')));
+    if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Set deleted')));
+    }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../models/workout_set.dart';
+import '../services/set_storage_service.dart';
 
 class CreateEditSetPage extends StatefulWidget {
-  final Map<String, dynamic>? existingSet;
+  final WorkoutSet? existingSet;
 
   const CreateEditSetPage({super.key, this.existingSet});
 
@@ -18,6 +20,7 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
   final _roundSecondsController = TextEditingController();
   final _breakMinutesController = TextEditingController();
   final _breakSecondsController = TextEditingController();
+  final SetStorageService _storageService = SetStorageService();
 
   bool _notifyEndOfRound = false;
   bool _notifyEndOfBreak = false;
@@ -31,19 +34,17 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
   void _initializeFields() {
     if (widget.existingSet != null) {
       final set = widget.existingSet!;
-      _nameController.text = set['name'] ?? '';
-      _roundsController.text = (set['numberOfSets'] ?? '').toString();
+      _nameController.text = set.name;
+      _roundsController.text = set.numberOfSets.toString();
 
-      final secondsPerSet = set['secondsPerSet'] ?? 0;
-      _roundMinutesController.text = (secondsPerSet ~/ 60).toString();
-      _roundSecondsController.text = (secondsPerSet % 60).toString();
+      _roundMinutesController.text = (set.secondsPerSet ~/ 60).toString();
+      _roundSecondsController.text = (set.secondsPerSet % 60).toString();
 
-      final breakSeconds = set['breakSeconds'] ?? 0;
-      _breakMinutesController.text = (breakSeconds ~/ 60).toString();
-      _breakSecondsController.text = (breakSeconds % 60).toString();
+      _breakMinutesController.text = (set.breakSeconds ~/ 60).toString();
+      _breakSecondsController.text = (set.breakSeconds % 60).toString();
 
-      _notifyEndOfRound = set['shouldNotifyEndOfSet'] ?? false;
-      _notifyEndOfBreak = set['shouldNotifyEndOfBreak'] ?? false;
+      _notifyEndOfRound = set.shouldNotifyEndOfSet;
+      _notifyEndOfBreak = set.shouldNotifyEndOfBreak;
     }
   }
 
@@ -88,7 +89,6 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
                 if (value.length < 2) {
                   return 'Set name must be at least 2 characters';
                 }
-                // TODO: Check for duplicate names when connected to storage
                 return null;
               },
             ),
@@ -330,15 +330,41 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     );
   }
 
-  void _saveAndStart() {
+  Future<void> _saveAndStart() async {
     // Validate full form including name
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Save to local storage and navigate to timer page
-      final setData = _buildSetData();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Saving "${setData['name']}" and starting...')),
+      final name = _nameController.text.trim();
+
+      // Check for duplicate names
+      final isDuplicate = await _storageService.isNameTaken(
+        name,
+        excludeId: widget.existingSet?.id,
       );
-      Navigator.of(context).pop(setData);
+
+      if (isDuplicate && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('A set named "$name" already exists')),
+        );
+        return;
+      }
+
+      final workoutSet = _buildWorkoutSet();
+
+      // Save or update the set
+      if (widget.existingSet != null) {
+        await _storageService.updateSet(workoutSet);
+      } else {
+        await _storageService.addSet(workoutSet);
+      }
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Saving "${workoutSet.name}" and starting...'),
+          ),
+        );
+        Navigator.of(context).pop(true);
+      }
     }
   }
 
@@ -364,7 +390,7 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     return true;
   }
 
-  Map<String, dynamic> _buildSetData() {
+  WorkoutSet _buildWorkoutSet() {
     final roundMinutes = int.tryParse(_roundMinutesController.text) ?? 0;
     final roundSeconds = int.tryParse(_roundSecondsController.text) ?? 0;
     final totalSeconds = (roundMinutes * 60) + roundSeconds;
@@ -373,15 +399,32 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     final breakSeconds = int.tryParse(_breakSecondsController.text) ?? 0;
     final totalBreakSeconds = (breakMinutes * 60) + breakSeconds;
 
-    return {
-      'name': _nameController.text.trim(),
-      'numberOfSets': int.parse(_roundsController.text),
-      'secondsPerSet': totalSeconds,
-      'breakSeconds': totalBreakSeconds,
-      'shouldNotifyEndOfSet': _notifyEndOfRound,
-      'shouldNotifyEndOfBreak': _notifyEndOfBreak,
-      'createdAt': DateTime.now().toIso8601String(),
-      'updatedAt': DateTime.now().toIso8601String(),
-    };
+    final now = DateTime.now();
+
+    if (widget.existingSet != null) {
+      // Update existing set
+      return widget.existingSet!.copyWith(
+        name: _nameController.text.trim(),
+        numberOfSets: int.parse(_roundsController.text),
+        secondsPerSet: totalSeconds,
+        breakSeconds: totalBreakSeconds,
+        shouldNotifyEndOfSet: _notifyEndOfRound,
+        shouldNotifyEndOfBreak: _notifyEndOfBreak,
+        updatedAt: now,
+      );
+    } else {
+      // Create new set
+      return WorkoutSet(
+        id: now.millisecondsSinceEpoch.toString(),
+        name: _nameController.text.trim(),
+        numberOfSets: int.parse(_roundsController.text),
+        secondsPerSet: totalSeconds,
+        breakSeconds: totalBreakSeconds,
+        shouldNotifyEndOfSet: _notifyEndOfRound,
+        shouldNotifyEndOfBreak: _notifyEndOfBreak,
+        createdAt: now,
+        updatedAt: now,
+      );
+    }
   }
 }
