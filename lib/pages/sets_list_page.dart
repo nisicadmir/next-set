@@ -67,20 +67,23 @@ class _SetsListPageState extends State<SetsListPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: _sets.isEmpty ? _buildEmptyState() : _buildSetsList(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          final result = await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const CreateEditSetPage()),
-          );
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 32),
+        child: FloatingActionButton.extended(
+          onPressed: () async {
+            final result = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CreateEditSetPage()),
+            );
 
-          if (result != null && mounted) {
-            await _loadSets();
-          }
-        },
-        icon: const Icon(Icons.add),
-        label: const Text('New Set'),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            if (result != null && mounted) {
+              await _loadSets();
+            }
+          },
+          icon: const Icon(Icons.add),
+          label: const Text('New Set'),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        ),
       ),
     );
   }
