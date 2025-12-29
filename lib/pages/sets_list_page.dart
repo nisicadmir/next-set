@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'create_edit_set_page.dart';
 
 class SetsListPage extends StatefulWidget {
   const SetsListPage({super.key});
@@ -20,8 +21,17 @@ class _SetsListPageState extends State<SetsListPage> {
       ),
       body: _sets.isEmpty ? _buildEmptyState() : _buildSetsList(),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: Navigate to create new set page
+        onPressed: () async {
+          final result = await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const CreateEditSetPage()),
+          );
+
+          // TODO: Add the returned set data to the list and save to storage
+          if (result != null && mounted) {
+            setState(() {
+              _sets.add(result);
+            });
+          }
         },
         icon: const Icon(Icons.add),
         label: const Text('New Set'),
@@ -177,11 +187,19 @@ class _SetsListPageState extends State<SetsListPage> {
     );
   }
 
-  void _editSet(int index) {
-    // TODO: Navigate to edit set page
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Edit set at index $index')));
+  void _editSet(int index) async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CreateEditSetPage(existingSet: _sets[index]),
+      ),
+    );
+
+    // TODO: Update the set data in storage
+    if (result != null && mounted) {
+      setState(() {
+        _sets[index] = result;
+      });
+    }
   }
 
   void _confirmDelete(int index, String name) {

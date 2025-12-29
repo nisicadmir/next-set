@@ -163,12 +163,12 @@ class _HomePageState extends State<HomePage> {
             // Section title
             Text(
               'Recently Used',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            
+
             // Recently used sets list (empty state for now)
             Expanded(
               child: Center(
@@ -178,27 +178,33 @@ class _HomePageState extends State<HomePage> {
                     Icon(
                       Icons.fitness_center,
                       size: 64,
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withOpacity(0.3),
                     ),
                     const SizedBox(height: 16),
                     Text(
                       'No recent sets',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.6),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Create a set to get started',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.4),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            
+
             // Button to view all sets
             SizedBox(
               width: double.infinity,
@@ -214,8 +220,12 @@ class _HomePageState extends State<HomePage> {
                 label: const Text('View All Sets'),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  foregroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onPrimaryContainer,
                 ),
               ),
             ),
