@@ -1,6 +1,6 @@
 {
-    "name": "next_set",
-    "short_name": "next_set",
+    "name": "NextSet",
+    "short_name": "NextSet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

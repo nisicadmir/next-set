@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="next_set"
+        android:label="NextSet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
