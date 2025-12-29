@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/workout_set.dart';
+import '../services/set_storage_service.dart';
 
 class RunSetPage extends StatefulWidget {
   final WorkoutSet workoutSet;
@@ -12,6 +13,7 @@ class RunSetPage extends StatefulWidget {
 }
 
 class _RunSetPageState extends State<RunSetPage> {
+  final SetStorageService _storageService = SetStorageService();
   Timer? _timer;
   int _currentRound = 1;
   int _remainingSeconds = 0;
@@ -31,7 +33,12 @@ class _RunSetPageState extends State<RunSetPage> {
     super.dispose();
   }
 
-  void _startTimer() {
+  void _startTimer() async {
+    // Mark set as used when starting
+    if (!_hasStarted) {
+      await _storageService.markSetAsUsed(widget.workoutSet.id);
+    }
+
     setState(() {
       _hasStarted = true;
       _isRunning = true;
