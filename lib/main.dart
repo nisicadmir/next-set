@@ -214,82 +214,85 @@ class _HomePageState extends State<HomePage> {
             : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Section title with view all button
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'My Sets',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      if (_sets.isNotEmpty)
-                        TextButton(
-                          onPressed: () async {
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SetsListPage(),
-                              ),
-                            );
-                            _loadSets();
-                          },
-                          child: const Text('View All'),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Section title with view all button
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'My Sets',
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Sets list or empty state
-                  Expanded(
-                    child: _sets.isEmpty
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.fitness_center,
-                                  size: 64,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.primary.withValues(alpha: 0.3),
+                        if (_sets.isNotEmpty)
+                          TextButton(
+                            onPressed: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SetsListPage(),
                                 ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  'No sets created yet',
-                                  style: Theme.of(context).textTheme.titleMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface
-                                            .withValues(alpha: 0.6),
-                                      ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Create a set to get started',
-                                  style: Theme.of(context).textTheme.bodyMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface
-                                            .withValues(alpha: 0.4),
-                                      ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount: _sets.length,
-                            itemBuilder: (context, index) {
-                              return _buildSetCard(_sets[index]);
+                              );
+                              _loadSets();
                             },
+                            child: const Text('View All'),
                           ),
-                  ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
 
-                  // Button to create new set
-                  SizedBox(
+                    // Sets list or empty state
+                    Expanded(
+                      child: _sets.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.fitness_center,
+                                    size: 64,
+                                    color: Theme.of(context).colorScheme.primary
+                                        .withValues(alpha: 0.3),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'No sets created yet',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.6),
+                                        ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Create a set to get started',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.4),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: _sets.length,
+                              itemBuilder: (context, index) {
+                                return _buildSetCard(_sets[index]);
+                              },
+                            ),
+                    ),
+
+                    // Button to create new set
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         onPressed: () async {
