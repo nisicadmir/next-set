@@ -208,11 +208,12 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
+      body: SafeArea(
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Section title with view all button
@@ -288,11 +289,7 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   // Button to create new set
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom + 16,
-                    ),
-                    child: SizedBox(
+                  SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         onPressed: () async {
@@ -318,10 +315,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 
