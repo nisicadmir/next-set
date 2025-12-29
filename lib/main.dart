@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'pages/sets_list_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -203,7 +204,11 @@ class _HomePageState extends State<HomePage> {
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  // TODO: Navigate to all sets page
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SetsListPage(),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.list),
                 label: const Text('View All Sets'),
