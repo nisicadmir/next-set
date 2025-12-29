@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../models/workout_set.dart';
 import '../services/set_storage_service.dart';
 
@@ -22,17 +23,40 @@ class _RunSetPageState extends State<RunSetPage> {
   bool _isBreak = false;
   bool _hasStarted = false;
 
+  // Audio players
+  final AudioPlayer _bellPlayer = AudioPlayer();
+  final AudioPlayer _notificationPlayer = AudioPlayer();
+  bool _notificationPlayedForCurrentPhase = false;
+
   @override
   void initState() {
     super.initState();
     _remainingSeconds = widget.workoutSet.secondsPerSet;
+    _initAudioPlayers();
+  }
+
+  Future<void> _initAudioPlayers() async {
+    await _bellPlayer.setSource(AssetSource('bell_sound.mp3'));
+    await _notificationPlayer.setSource(AssetSource('notification_sound.mp3'));
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    _bellPlayer.dispose();
+    _notificationPlayer.dispose();
     WakelockPlus.disable();
     super.dispose();
+  }
+
+  Future<void> _playBellSound() async {
+    await _bellPlayer.stop();
+    await _bellPlayer.play(AssetSource('bell_sound.mp3'));
+  }
+
+  Future<void> _playNotificationSound() async {
+    await _notificationPlayer.stop();
+    await _notificationPlayer.play(AssetSource('notification_sound.mp3'));
   }
 
   void _startTimer() async {
@@ -51,9 +75,21 @@ class _RunSetPageState extends State<RunSetPage> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_remainingSeconds > 0) {
+          // Check for 10 seconds warning notification
+          if (_remainingSeconds == 10 && !_notificationPlayedForCurrentPhase) {
+            final shouldNotify = _isBreak
+                ? widget.workoutSet.shouldNotifyEndOfBreak
+                : widget.workoutSet.shouldNotifyEndOfSet;
+            if (shouldNotify) {
+              _playNotificationSound();
+              _notificationPlayedForCurrentPhase = true;
+            }
+          }
           _remainingSeconds--;
         } else {
-          // Timer finished
+          // Timer finished - play bell sound
+          _playBellSound();
+
           if (_isBreak) {
             // Break finished, move to next round
             _currentRound++;
@@ -65,6 +101,7 @@ class _RunSetPageState extends State<RunSetPage> {
               // Start next set
               _isBreak = false;
               _remainingSeconds = widget.workoutSet.secondsPerSet;
+              _notificationPlayedForCurrentPhase = false;
             }
           } else {
             // Set finished
@@ -72,6 +109,7 @@ class _RunSetPageState extends State<RunSetPage> {
               // Start break
               _isBreak = true;
               _remainingSeconds = widget.workoutSet.breakSeconds;
+              _notificationPlayedForCurrentPhase = false;
             } else {
               // Last set finished, workout complete
               _stopTimer();
