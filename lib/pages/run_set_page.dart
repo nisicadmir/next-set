@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../models/workout_set.dart';
 import '../services/set_storage_service.dart';
 
@@ -30,6 +31,7 @@ class _RunSetPageState extends State<RunSetPage> {
   @override
   void dispose() {
     _timer?.cancel();
+    WakelockPlus.disable();
     super.dispose();
   }
 
@@ -37,6 +39,8 @@ class _RunSetPageState extends State<RunSetPage> {
     // Mark set as used when starting
     if (!_hasStarted) {
       await _storageService.markSetAsUsed(widget.workoutSet.id);
+      // Enable wakelock to keep screen on during workout
+      WakelockPlus.enable();
     }
 
     setState(() {
@@ -102,10 +106,13 @@ class _RunSetPageState extends State<RunSetPage> {
 
   void _deleteAndExit() {
     _stopTimer();
+    WakelockPlus.disable();
     Navigator.of(context).pop();
   }
 
   void _showCompletionDialog() {
+    // Disable wakelock when workout is complete
+    WakelockPlus.disable();
     showDialog(
       context: context,
       barrierDismissible: false,
