@@ -191,9 +191,14 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () async {
-                    final url = Uri.parse('https://www.nisix.net/nextset/privacy.html');
+                    final url = Uri.parse(
+                      'https://www.nisix.net/nextset/privacy.html',
+                    );
                     if (await canLaunchUrl(url)) {
-                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                      await launchUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
                     }
                   },
                   child: const Text('Privacy'),
@@ -247,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                   size: 64,
                                   color: Theme.of(
                                     context,
-                                  ).colorScheme.primary.withOpacity(0.3),
+                                  ).colorScheme.primary.withValues(alpha: 0.3),
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
@@ -257,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface
-                                            .withOpacity(0.6),
+                                            .withValues(alpha: 0.6),
                                       ),
                                 ),
                                 const SizedBox(height: 8),
@@ -268,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                       ),
                                 ),
                               ],

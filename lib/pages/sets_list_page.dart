@@ -72,7 +72,9 @@ class _SetsListPageState extends State<SetsListPage> {
         child: FloatingActionButton.extended(
           onPressed: () async {
             final result = await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CreateEditSetPage()),
+              MaterialPageRoute(
+                builder: (context) => const CreateEditSetPage(),
+              ),
             );
 
             if (result != null && mounted) {
@@ -96,20 +98,24 @@ class _SetsListPageState extends State<SetsListPage> {
           Icon(
             Icons.fitness_center,
             size: 64,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           Text(
             'No sets created yet',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Tap the button below to create your first set',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
             ),
           ),
         ],
