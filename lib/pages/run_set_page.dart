@@ -206,7 +206,7 @@ class _RunSetPageState extends State<RunSetPage> {
               Text(
                 _formatTime(_remainingSeconds),
                 style: TextStyle(
-                  fontSize: 72,
+                  fontSize: 96,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary,
                 ),
