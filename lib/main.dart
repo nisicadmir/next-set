@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'pages/sets_list_page.dart';
 import 'pages/create_edit_set_page.dart';
 import 'pages/run_set_page.dart';
@@ -189,8 +190,11 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: () {
-                    // TODO: Navigate to privacy parge
+                  onPressed: () async {
+                    final url = Uri.parse('https://www.nisix.net/nextset/privacy.html');
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    }
                   },
                   child: const Text('Privacy'),
                 ),
