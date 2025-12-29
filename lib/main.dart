@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {
-                    // TODO: Navigate to privacy page
+                    // TODO: Navigate to privacy parge
                   },
                   child: const Text('Privacy'),
                 ),

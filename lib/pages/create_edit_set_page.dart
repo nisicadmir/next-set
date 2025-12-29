@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/workout_set.dart';
 import '../services/set_storage_service.dart';
+import 'run_set_page.dart';
 
 class CreateEditSetPage extends StatefulWidget {
   final WorkoutSet? existingSet;
@@ -288,9 +289,9 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
               children: [
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: _startWithoutSaving,
-                    icon: const Icon(Icons.play_arrow),
-                    label: const Text('Start Without Saving'),
+                    onPressed: _saveSet,
+                    icon: const Icon(Icons.save),
+                    label: const Text('Save'),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
@@ -299,9 +300,9 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: _saveAndStart,
-                    icon: const Icon(Icons.check),
-                    label: const Text('Save & Start'),
+                    onPressed: _saveAndOpen,
+                    icon: const Icon(Icons.play_arrow),
+                    label: const Text('Save and Open'),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -318,19 +319,7 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     );
   }
 
-  void _startWithoutSaving() {
-    // Validate basic fields but not the name
-    if (!_validateBasicFields()) {
-      return;
-    }
-
-    // TODO: Navigate to timer page with set configuration without saving
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Starting set without saving...')),
-    );
-  }
-
-  Future<void> _saveAndStart() async {
+  Future<void> _saveSet() async {
     // Validate full form including name
     if (_formKey.currentState?.validate() ?? false) {
       final name = _nameController.text.trim();
@@ -359,35 +348,50 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Saving "${workoutSet.name}" and starting...'),
-          ),
+          SnackBar(content: Text('Set "${workoutSet.name}" saved')),
         );
         Navigator.of(context).pop(true);
       }
     }
   }
 
-  bool _validateBasicFields() {
-    // Manually validate required fields except name
-    final rounds = int.tryParse(_roundsController.text);
-    if (rounds == null || rounds < 1) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter valid number of rounds')),
-      );
-      return false;
-    }
+  Future<void> _saveAndOpen() async {
+    // Validate full form including name
+    if (_formKey.currentState?.validate() ?? false) {
+      final name = _nameController.text.trim();
 
-    final roundMinutes = int.tryParse(_roundMinutesController.text) ?? 0;
-    final roundSeconds = int.tryParse(_roundSecondsController.text) ?? 0;
-    if (roundMinutes == 0 && roundSeconds == 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Round duration must be greater than 0')),
+      // Check for duplicate names
+      final isDuplicate = await _storageService.isNameTaken(
+        name,
+        excludeId: widget.existingSet?.id,
       );
-      return false;
-    }
 
-    return true;
+      if (isDuplicate && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('A set named "$name" already exists')),
+        );
+        return;
+      }
+
+      final workoutSet = _buildWorkoutSet();
+
+      // Save or update the set
+      if (widget.existingSet != null) {
+        await _storageService.updateSet(workoutSet);
+      } else {
+        await _storageService.addSet(workoutSet);
+      }
+
+      if (mounted) {
+        // Pop the create/edit page and navigate to run page
+        Navigator.of(context).pop(true);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RunSetPage(workoutSet: workoutSet),
+          ),
+        );
+      }
+    }
   }
 
   WorkoutSet _buildWorkoutSet() {
