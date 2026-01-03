@@ -185,23 +185,29 @@ class _HomePageState extends State<HomePage> {
             ),
             const Spacer(),
             // Privacy link at the bottom
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () async {
-                    final url = Uri.parse(
-                      'https://www.nisix.net/nextset/privacy.html',
-                    );
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(
-                        url,
-                        mode: LaunchMode.externalApplication,
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () async {
+                      final url = Uri.parse(
+                        'https://www.nisix.net/nextset/privacy.html',
                       );
-                    }
-                  },
-                  child: const Text('Privacy'),
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Privacy',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
                 ),
               ),
             ),
