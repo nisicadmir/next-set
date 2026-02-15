@@ -12,6 +12,8 @@
 .swiftpm/
 migrate_working_dir/
 
+next-set.jks
+
 # IntelliJ related
 *.iml
 *.ipr

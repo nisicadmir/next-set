@@ -1,0 +1,68 @@
+{
+  "mcp.servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/admir/Documents/Projects/next_set"
+      ],
+      "description": "Browse and read files in your Flutter project"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token-here"
+      },
+      "description": "Access Flutter/Dart repositories and examples"
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "your-brave-api-key-here"
+      },
+      "description": "Search for Flutter packages, documentation, and solutions"
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Test Flutter web builds and automate browser interactions"
+    },
+    "gitlab": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gitlab"],
+      "env": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "your-gitlab-token-here",
+        "GITLAB_INSTANCE_URL": "https://gitlab.com"
+      },
+      "description": "Access GitLab repositories if you use GitLab"
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/dbname"
+      },
+      "description": "Query PostgreSQL databases (useful if your Flutter app uses a PostgreSQL backend)"
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-firecrawl"],
+      "env": {
+        "FIRECRAWL_API_KEY": "your-firecrawl-api-key-here"
+      },
+      "description": "Scrape and extract content from Flutter documentation websites"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "/home/admir/Documents/Projects/next_set/data/database.db"
+      ],
+      "description": "Query SQLite databases (useful for Flutter apps using sqflite)"
+    }
+  }
+}
