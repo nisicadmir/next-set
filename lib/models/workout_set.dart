@@ -4,6 +4,9 @@ class WorkoutSet {
   final int numberOfSets;
   final int secondsPerSet;
   final int breakSeconds;
+  final int additionalSetsBeforeBreak;
+  final int firstAdditionalSetSeconds;
+  final int secondAdditionalSetSeconds;
   final bool shouldNotifyEndOfSet;
   final bool shouldNotifyEndOfBreak;
   final DateTime createdAt;
@@ -16,6 +19,9 @@ class WorkoutSet {
     required this.numberOfSets,
     required this.secondsPerSet,
     required this.breakSeconds,
+    this.additionalSetsBeforeBreak = 0,
+    required this.firstAdditionalSetSeconds,
+    required this.secondAdditionalSetSeconds,
     required this.shouldNotifyEndOfSet,
     required this.shouldNotifyEndOfBreak,
     required this.createdAt,
@@ -25,12 +31,19 @@ class WorkoutSet {
 
   // Create from JSON
   factory WorkoutSet.fromJson(Map<String, dynamic> json) {
+    final secondsPerSet = json['secondsPerSet'] as int;
     return WorkoutSet(
       id: json['id'] as String,
       name: json['name'] as String,
       numberOfSets: json['numberOfSets'] as int,
-      secondsPerSet: json['secondsPerSet'] as int,
+      secondsPerSet: secondsPerSet,
       breakSeconds: json['breakSeconds'] as int? ?? 0,
+      additionalSetsBeforeBreak:
+          ((json['additionalSetsBeforeBreak'] as int?) ?? 0).clamp(0, 2),
+      firstAdditionalSetSeconds:
+          (json['firstAdditionalSetSeconds'] as int?) ?? secondsPerSet,
+      secondAdditionalSetSeconds:
+          (json['secondAdditionalSetSeconds'] as int?) ?? secondsPerSet,
       shouldNotifyEndOfSet: json['shouldNotifyEndOfSet'] as bool? ?? false,
       shouldNotifyEndOfBreak: json['shouldNotifyEndOfBreak'] as bool? ?? false,
       createdAt: DateTime.parse(json['createdAt'] as String),
@@ -49,6 +62,9 @@ class WorkoutSet {
       'numberOfSets': numberOfSets,
       'secondsPerSet': secondsPerSet,
       'breakSeconds': breakSeconds,
+      'additionalSetsBeforeBreak': additionalSetsBeforeBreak.clamp(0, 2),
+      'firstAdditionalSetSeconds': firstAdditionalSetSeconds,
+      'secondAdditionalSetSeconds': secondAdditionalSetSeconds,
       'shouldNotifyEndOfSet': shouldNotifyEndOfSet,
       'shouldNotifyEndOfBreak': shouldNotifyEndOfBreak,
       'createdAt': createdAt.toIso8601String(),
@@ -64,6 +80,9 @@ class WorkoutSet {
     int? numberOfSets,
     int? secondsPerSet,
     int? breakSeconds,
+    int? additionalSetsBeforeBreak,
+    int? firstAdditionalSetSeconds,
+    int? secondAdditionalSetSeconds,
     bool? shouldNotifyEndOfSet,
     bool? shouldNotifyEndOfBreak,
     DateTime? createdAt,
@@ -76,6 +95,15 @@ class WorkoutSet {
       numberOfSets: numberOfSets ?? this.numberOfSets,
       secondsPerSet: secondsPerSet ?? this.secondsPerSet,
       breakSeconds: breakSeconds ?? this.breakSeconds,
+      additionalSetsBeforeBreak:
+          (additionalSetsBeforeBreak ?? this.additionalSetsBeforeBreak).clamp(
+            0,
+            2,
+          ),
+      firstAdditionalSetSeconds:
+          firstAdditionalSetSeconds ?? this.firstAdditionalSetSeconds,
+      secondAdditionalSetSeconds:
+          secondAdditionalSetSeconds ?? this.secondAdditionalSetSeconds,
       shouldNotifyEndOfSet: shouldNotifyEndOfSet ?? this.shouldNotifyEndOfSet,
       shouldNotifyEndOfBreak:
           shouldNotifyEndOfBreak ?? this.shouldNotifyEndOfBreak,

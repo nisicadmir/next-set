@@ -20,10 +20,13 @@ class RunSetPage extends StatefulWidget {
 class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
   final SetStorageService _storageService = SetStorageService();
   final NotificationService _notificationService = NotificationService();
+  late WorkoutSet _workoutSet;
   int _currentRound = 1;
   int _remainingSeconds = 0;
   bool _isRunning = false;
   bool _isBreak = false;
+  int _completedSetsInCycle = 0;
+  int _additionalSetsBeforeBreak = 0;
   bool _hasStarted = false;
   bool _isInBackground = false;
 
@@ -41,7 +44,9 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _remainingSeconds = widget.workoutSet.secondsPerSet;
+    _workoutSet = widget.workoutSet;
+    _remainingSeconds = _workoutSet.secondsPerSet;
+    _additionalSetsBeforeBreak = _workoutSet.additionalSetsBeforeBreak.clamp(0, 2);
     FlutterForegroundTask.addTaskDataCallback(_onTaskData);
     _initAudioPlayers();
     _initNotifications();
@@ -143,6 +148,11 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
             (data['remainingSeconds'] as int?) ?? _remainingSeconds;
         _isBreak = (data['isBreak'] as bool?) ?? _isBreak;
         _isRunning = (data['isRunning'] as bool?) ?? _isRunning;
+        _completedSetsInCycle =
+            (data['completedSetsInCycle'] as int?) ?? _completedSetsInCycle;
+        _additionalSetsBeforeBreak =
+            (data['additionalSetsBeforeBreak'] as int?) ??
+            _additionalSetsBeforeBreak;
         _hasStarted = true;
       });
     } else if (type == 'event') {
@@ -191,14 +201,18 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
 
     await saveWorkoutForegroundTaskData(
       name: widget.workoutSet.name,
-      numberOfSets: widget.workoutSet.numberOfSets,
-      setSeconds: widget.workoutSet.secondsPerSet,
-      breakSeconds: widget.workoutSet.breakSeconds,
-      shouldNotifyEndOfSet: widget.workoutSet.shouldNotifyEndOfSet,
-      shouldNotifyEndOfBreak: widget.workoutSet.shouldNotifyEndOfBreak,
+      numberOfSets: _workoutSet.numberOfSets,
+      setSeconds: _workoutSet.secondsPerSet,
+      breakSeconds: _workoutSet.breakSeconds,
+      additionalSetsBeforeBreak: _additionalSetsBeforeBreak,
+      firstAdditionalSetSeconds: _workoutSet.firstAdditionalSetSeconds,
+      secondAdditionalSetSeconds: _workoutSet.secondAdditionalSetSeconds,
+      shouldNotifyEndOfSet: _workoutSet.shouldNotifyEndOfSet,
+      shouldNotifyEndOfBreak: _workoutSet.shouldNotifyEndOfBreak,
       currentRound: _currentRound,
       remainingSeconds: _remainingSeconds,
       isBreak: _isBreak,
+      completedSetsInCycle: _completedSetsInCycle,
       isRunning: true,
       isForeground: true,
     );
@@ -208,7 +222,7 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
       serviceTypes: const [ForegroundServiceTypes.dataSync],
       notificationTitle: 'NextSet',
       notificationText:
-          '${_isBreak ? 'Break' : 'Set $_currentRound/${widget.workoutSet.numberOfSets}'} • ${_formatTime(_remainingSeconds)}',
+          '${_isBreak ? 'Break' : 'Set $_currentRound/${_workoutSet.numberOfSets} • ${_completedSetsInCycle + 1}/${1 + _additionalSetsBeforeBreak}'} • ${_formatTime(_remainingSeconds)}',
       notificationButtons: const [
         NotificationButton(id: 'pause', text: 'Pause'),
         NotificationButton(id: 'stop', text: 'Stop'),
@@ -245,6 +259,31 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
       'isForeground': true,
     });
     await _startWorkoutService();
+  }
+
+  Future<void> _addAdditionalSet() async {
+    if (_hasStarted || _additionalSetsBeforeBreak >= 2) return;
+
+    final updatedAdditionalSets = (_additionalSetsBeforeBreak + 1).clamp(0, 2);
+    final updatedSet = _workoutSet.copyWith(
+      additionalSetsBeforeBreak: updatedAdditionalSets,
+      updatedAt: DateTime.now(),
+    );
+
+    await _storageService.updateSet(updatedSet);
+
+    if (!mounted) return;
+    setState(() {
+      _workoutSet = updatedSet;
+      _additionalSetsBeforeBreak = updatedAdditionalSets;
+    });
+
+    if (_hasStarted) {
+      FlutterForegroundTask.sendDataToTask(<String, Object>{
+        'cmd': 'setAdditionalSets',
+        'additionalSetsBeforeBreak': updatedAdditionalSets,
+      });
+    }
   }
 
   void _pauseTimer() async {
@@ -434,6 +473,25 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              if (_hasStarted && !_isBreak)
+                Text(
+                  'Set in cycle: ${_completedSetsInCycle + 1}/${1 + _additionalSetsBeforeBreak}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              const SizedBox(height: 12),
+              if (!_hasStarted)
+                OutlinedButton.icon(
+                  onPressed: _additionalSetsBeforeBreak >= 2
+                      ? null
+                      : _addAdditionalSet,
+                  icon: const Icon(Icons.add),
+                  label: Text(
+                    _additionalSetsBeforeBreak >= 2
+                        ? 'Additional sets maxed (2)'
+                        : 'Add set before break',
+                  ),
+                ),
 
               if (showNotificationLogs) ...[
                 const SizedBox(height: 32),

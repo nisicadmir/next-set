@@ -21,10 +21,15 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
   final _roundSecondsController = TextEditingController();
   final _breakMinutesController = TextEditingController();
   final _breakSecondsController = TextEditingController();
+  final _additionalOneMinutesController = TextEditingController();
+  final _additionalOneSecondsController = TextEditingController();
+  final _additionalTwoMinutesController = TextEditingController();
+  final _additionalTwoSecondsController = TextEditingController();
   final SetStorageService _storageService = SetStorageService();
 
   bool _notifyEndOfRound = false;
   bool _notifyEndOfBreak = false;
+  int _additionalSetsBeforeBreak = 0;
 
   @override
   void initState() {
@@ -43,9 +48,23 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
 
       _breakMinutesController.text = (set.breakSeconds ~/ 60).toString();
       _breakSecondsController.text = (set.breakSeconds % 60).toString();
+      _additionalOneMinutesController.text =
+          (set.firstAdditionalSetSeconds ~/ 60).toString();
+      _additionalOneSecondsController.text =
+          (set.firstAdditionalSetSeconds % 60).toString();
+      _additionalTwoMinutesController.text =
+          (set.secondAdditionalSetSeconds ~/ 60).toString();
+      _additionalTwoSecondsController.text =
+          (set.secondAdditionalSetSeconds % 60).toString();
 
       _notifyEndOfRound = set.shouldNotifyEndOfSet;
       _notifyEndOfBreak = set.shouldNotifyEndOfBreak;
+      _additionalSetsBeforeBreak = set.additionalSetsBeforeBreak.clamp(0, 2);
+    } else {
+      _additionalOneMinutesController.text = '0';
+      _additionalOneSecondsController.text = '30';
+      _additionalTwoMinutesController.text = '0';
+      _additionalTwoSecondsController.text = '20';
     }
   }
 
@@ -57,6 +76,10 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     _roundSecondsController.dispose();
     _breakMinutesController.dispose();
     _breakSecondsController.dispose();
+    _additionalOneMinutesController.dispose();
+    _additionalOneSecondsController.dispose();
+    _additionalTwoMinutesController.dispose();
+    _additionalTwoSecondsController.dispose();
     super.dispose();
   }
 
@@ -244,6 +267,130 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
               ),
               const SizedBox(height: 24),
 
+              Text(
+                'Sets Before Break',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.add_circle_outline),
+                  title: const Text('Additional Sets Before Break'),
+                  subtitle: const Text('Choose 0, 1, or 2 (max 3 sets total)'),
+                  trailing: DropdownButton<int>(
+                    value: _additionalSetsBeforeBreak,
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() {
+                        _additionalSetsBeforeBreak = value.clamp(0, 2);
+                      });
+                    },
+                    items: const [
+                      DropdownMenuItem(value: 0, child: Text('0')),
+                      DropdownMenuItem(value: 1, child: Text('1')),
+                      DropdownMenuItem(value: 2, child: Text('2')),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              if (_additionalSetsBeforeBreak >= 1) ...[
+                Text(
+                  '1st Additional Set Duration',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _additionalOneMinutesController,
+                        decoration: const InputDecoration(
+                          labelText: 'Minutes',
+                          border: OutlineInputBorder(),
+                          suffixText: 'min',
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        validator: (value) => _validateAdditionalMinutes(
+                          value,
+                          isEnabled: _additionalSetsBeforeBreak >= 1,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _additionalOneSecondsController,
+                        decoration: const InputDecoration(
+                          labelText: 'Seconds',
+                          border: OutlineInputBorder(),
+                          suffixText: 'sec',
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        validator: (value) => _validateAdditionalSeconds(
+                          value,
+                          minutesController: _additionalOneMinutesController,
+                          isEnabled: _additionalSetsBeforeBreak >= 1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ],
+
+              if (_additionalSetsBeforeBreak >= 2) ...[
+                Text(
+                  '2nd Additional Set Duration',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _additionalTwoMinutesController,
+                        decoration: const InputDecoration(
+                          labelText: 'Minutes',
+                          border: OutlineInputBorder(),
+                          suffixText: 'min',
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        validator: (value) => _validateAdditionalMinutes(
+                          value,
+                          isEnabled: _additionalSetsBeforeBreak >= 2,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _additionalTwoSecondsController,
+                        decoration: const InputDecoration(
+                          labelText: 'Seconds',
+                          border: OutlineInputBorder(),
+                          suffixText: 'sec',
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        validator: (value) => _validateAdditionalSeconds(
+                          value,
+                          minutesController: _additionalTwoMinutesController,
+                          isEnabled: _additionalSetsBeforeBreak >= 2,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+              ],
+
               // Notifications Section
               Text(
                 'Notifications',
@@ -410,6 +557,18 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
     final breakMinutes = int.tryParse(_breakMinutesController.text) ?? 0;
     final breakSeconds = int.tryParse(_breakSecondsController.text) ?? 0;
     final totalBreakSeconds = (breakMinutes * 60) + breakSeconds;
+    final additionalOneMinutes =
+        int.tryParse(_additionalOneMinutesController.text) ?? 0;
+    final additionalOneSeconds =
+        int.tryParse(_additionalOneSecondsController.text) ?? 0;
+    final firstAdditionalSetSeconds =
+        (additionalOneMinutes * 60) + additionalOneSeconds;
+    final additionalTwoMinutes =
+        int.tryParse(_additionalTwoMinutesController.text) ?? 0;
+    final additionalTwoSeconds =
+        int.tryParse(_additionalTwoSecondsController.text) ?? 0;
+    final secondAdditionalSetSeconds =
+        (additionalTwoMinutes * 60) + additionalTwoSeconds;
 
     final now = DateTime.now();
 
@@ -420,6 +579,13 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
         numberOfSets: int.parse(_roundsController.text),
         secondsPerSet: totalSeconds,
         breakSeconds: totalBreakSeconds,
+        additionalSetsBeforeBreak: _additionalSetsBeforeBreak.clamp(0, 2),
+        firstAdditionalSetSeconds: firstAdditionalSetSeconds > 0
+            ? firstAdditionalSetSeconds
+            : totalSeconds,
+        secondAdditionalSetSeconds: secondAdditionalSetSeconds > 0
+            ? secondAdditionalSetSeconds
+            : totalSeconds,
         shouldNotifyEndOfSet: _notifyEndOfRound,
         shouldNotifyEndOfBreak: _notifyEndOfBreak,
         updatedAt: now,
@@ -432,11 +598,53 @@ class _CreateEditSetPageState extends State<CreateEditSetPage> {
         numberOfSets: int.parse(_roundsController.text),
         secondsPerSet: totalSeconds,
         breakSeconds: totalBreakSeconds,
+        additionalSetsBeforeBreak: _additionalSetsBeforeBreak.clamp(0, 2),
+        firstAdditionalSetSeconds: firstAdditionalSetSeconds > 0
+            ? firstAdditionalSetSeconds
+            : totalSeconds,
+        secondAdditionalSetSeconds: secondAdditionalSetSeconds > 0
+            ? secondAdditionalSetSeconds
+            : totalSeconds,
         shouldNotifyEndOfSet: _notifyEndOfRound,
         shouldNotifyEndOfBreak: _notifyEndOfBreak,
         createdAt: now,
         updatedAt: now,
       );
     }
+  }
+
+  String? _validateAdditionalMinutes(
+    String? value, {
+    required bool isEnabled,
+  }) {
+    if (!isEnabled) return null;
+    if (value == null || value.isEmpty) {
+      return 'Required';
+    }
+    final minutes = int.tryParse(value);
+    if (minutes == null || minutes < 0) {
+      return 'Invalid';
+    }
+    return null;
+  }
+
+  String? _validateAdditionalSeconds(
+    String? value, {
+    required TextEditingController minutesController,
+    required bool isEnabled,
+  }) {
+    if (!isEnabled) return null;
+    if (value == null || value.isEmpty) {
+      return 'Required';
+    }
+    final seconds = int.tryParse(value);
+    if (seconds == null || seconds < 0 || seconds > 59) {
+      return 'Invalid';
+    }
+    final minutes = int.tryParse(minutesController.text) ?? 0;
+    if (minutes == 0 && seconds == 0) {
+      return 'Must be > 0';
+    }
+    return null;
   }
 }

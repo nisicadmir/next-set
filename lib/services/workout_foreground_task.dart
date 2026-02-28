@@ -7,12 +7,16 @@ const String _kWsName = 'ws_name';
 const String _kWsNumberOfSets = 'ws_number_of_sets';
 const String _kWsSetSeconds = 'ws_set_seconds';
 const String _kWsBreakSeconds = 'ws_break_seconds';
+const String _kWsAdditionalSetsBeforeBreak = 'ws_additional_sets_before_break';
+const String _kWsFirstAdditionalSetSeconds = 'ws_first_additional_set_seconds';
+const String _kWsSecondAdditionalSetSeconds = 'ws_second_additional_set_seconds';
 const String _kWsNotifyEndOfSet = 'ws_notify_end_of_set';
 const String _kWsNotifyEndOfBreak = 'ws_notify_end_of_break';
 
 const String _kStateCurrentRound = 'state_current_round';
 const String _kStateRemainingSeconds = 'state_remaining_seconds';
 const String _kStateIsBreak = 'state_is_break';
+const String _kStateCompletedSetsInCycle = 'state_completed_sets_in_cycle';
 const String _kStateIsRunning = 'state_is_running';
 const String _kStateIsForeground = 'state_is_foreground';
 
@@ -21,11 +25,15 @@ Future<void> saveWorkoutForegroundTaskData({
   required int numberOfSets,
   required int setSeconds,
   required int breakSeconds,
+  required int additionalSetsBeforeBreak,
+  required int firstAdditionalSetSeconds,
+  required int secondAdditionalSetSeconds,
   required bool shouldNotifyEndOfSet,
   required bool shouldNotifyEndOfBreak,
   required int currentRound,
   required int remainingSeconds,
   required bool isBreak,
+  required int completedSetsInCycle,
   required bool isRunning,
   required bool isForeground,
 }) async {
@@ -38,6 +46,18 @@ Future<void> saveWorkoutForegroundTaskData({
   await FlutterForegroundTask.saveData(
     key: _kWsBreakSeconds,
     value: breakSeconds,
+  );
+  await FlutterForegroundTask.saveData(
+    key: _kWsAdditionalSetsBeforeBreak,
+    value: additionalSetsBeforeBreak,
+  );
+  await FlutterForegroundTask.saveData(
+    key: _kWsFirstAdditionalSetSeconds,
+    value: firstAdditionalSetSeconds,
+  );
+  await FlutterForegroundTask.saveData(
+    key: _kWsSecondAdditionalSetSeconds,
+    value: secondAdditionalSetSeconds,
   );
   await FlutterForegroundTask.saveData(
     key: _kWsNotifyEndOfSet,
@@ -57,6 +77,10 @@ Future<void> saveWorkoutForegroundTaskData({
     value: remainingSeconds,
   );
   await FlutterForegroundTask.saveData(key: _kStateIsBreak, value: isBreak);
+  await FlutterForegroundTask.saveData(
+    key: _kStateCompletedSetsInCycle,
+    value: completedSetsInCycle,
+  );
   await FlutterForegroundTask.saveData(key: _kStateIsRunning, value: isRunning);
   await FlutterForegroundTask.saveData(
     key: _kStateIsForeground,
@@ -77,6 +101,9 @@ class _WorkoutTaskHandler extends TaskHandler {
   int _numberOfSets = 1;
   int _setSeconds = 0;
   int _breakSeconds = 0;
+  int _additionalSetsBeforeBreak = 0;
+  int _firstAdditionalSetSeconds = 0;
+  int _secondAdditionalSetSeconds = 0;
   bool _shouldNotifyEndOfSet = false;
   bool _shouldNotifyEndOfBreak = false;
 
@@ -84,6 +111,7 @@ class _WorkoutTaskHandler extends TaskHandler {
   int _currentRound = 1;
   int _remainingSeconds = 0;
   bool _isBreak = false;
+  int _completedSetsInCycle = 0;
   bool _isRunning = false;
   bool _isForeground = false;
   bool _warnedThisPhase = false;
@@ -106,6 +134,21 @@ class _WorkoutTaskHandler extends TaskHandler {
         (await FlutterForegroundTask.getData<int>(key: _kWsSetSeconds)) ?? 0;
     _breakSeconds =
         (await FlutterForegroundTask.getData<int>(key: _kWsBreakSeconds)) ?? 0;
+    _additionalSetsBeforeBreak =
+        ((await FlutterForegroundTask.getData<int>(
+              key: _kWsAdditionalSetsBeforeBreak,
+            )) ??
+            0).clamp(0, 2);
+    _firstAdditionalSetSeconds =
+        (await FlutterForegroundTask.getData<int>(
+          key: _kWsFirstAdditionalSetSeconds,
+        )) ??
+        _setSeconds;
+    _secondAdditionalSetSeconds =
+        (await FlutterForegroundTask.getData<int>(
+          key: _kWsSecondAdditionalSetSeconds,
+        )) ??
+        _setSeconds;
     _shouldNotifyEndOfSet =
         (await FlutterForegroundTask.getData<bool>(key: _kWsNotifyEndOfSet)) ??
         false;
@@ -126,6 +169,11 @@ class _WorkoutTaskHandler extends TaskHandler {
     _isBreak =
         (await FlutterForegroundTask.getData<bool>(key: _kStateIsBreak)) ??
         false;
+    _completedSetsInCycle =
+        (await FlutterForegroundTask.getData<int>(
+          key: _kStateCompletedSetsInCycle,
+        )) ??
+        0;
     _isRunning =
         (await FlutterForegroundTask.getData<bool>(key: _kStateIsRunning)) ??
         true;
@@ -160,13 +208,16 @@ class _WorkoutTaskHandler extends TaskHandler {
             ? _shouldNotifyEndOfBreak
             : _shouldNotifyEndOfSet;
         if (shouldNotify) {
+          final currentSetInCycle = _completedSetsInCycle + 1;
           _warnedThisPhase = true;
           _fireEvent(
             type: 'notify',
-            title: _isBreak ? 'Break ending soon!' : 'Set ending soon!',
+            title: _isBreak
+                ? 'Break ending soon!'
+                : '${_setLabelForCycleSet(currentSetInCycle)} ending soon!',
             body: _isBreak
                 ? '10 seconds left in break'
-                : '10 seconds left in Set $_currentRound',
+                : '10 seconds left in ${_setLabelForCycleSet(currentSetInCycle)}',
             soundName: 'notification_sound',
           );
         }
@@ -180,32 +231,70 @@ class _WorkoutTaskHandler extends TaskHandler {
       return;
     }
 
-    // Phase finished.
-    if (_currentRound >= _numberOfSets) {
-      _completeWorkout();
-      return;
-    }
-
-    _fireEvent(
-      type: 'notify',
-      title: _isBreak
-          ? 'Break $_currentRound Over!'
-          : 'Set $_currentRound Complete!',
-      body: _isBreak
-          ? 'Start Set ${_currentRound + 1}'
-          : 'Starting break $_currentRound',
-      soundName: 'bell_sound',
-    );
-
     if (_isBreak) {
+      _fireEvent(
+        type: 'notify',
+        title: 'Break $_currentRound Over!',
+        body: 'Start Set ${_currentRound + 1}',
+        soundName: 'bell_sound',
+      );
       _currentRound++;
+      _completedSetsInCycle = 0;
       _isBreak = false;
-      _remainingSeconds = _setSeconds;
+      _remainingSeconds = _durationForSetInCycle(1);
     } else {
-      _isBreak = true;
-      _remainingSeconds = _breakSeconds;
+      final completedSetInCycle = _completedSetsInCycle + 1;
+      final isAdditionalSet = completedSetInCycle > 1;
+
+      _completedSetsInCycle = completedSetInCycle;
+
+      final isLastRound = _currentRound >= _numberOfSets;
+      final shouldStartBreak =
+          !isLastRound && _completedSetsInCycle >= _effectiveSetsBeforeBreak();
+      final shouldCompleteWorkout =
+          isLastRound && _completedSetsInCycle >= _effectiveSetsBeforeBreak();
+
+      if (shouldCompleteWorkout) {
+        _fireEvent(
+          type: 'notify',
+          title: isAdditionalSet
+              ? _additionalSetDoneTitle(completedSetInCycle - 1)
+              : 'Set $_currentRound Complete!',
+          body: 'Workout complete',
+          soundName: 'bell_sound',
+        );
+        _completeWorkout();
+        return;
+      } else if (shouldStartBreak) {
+        _fireEvent(
+          type: 'notify',
+          title: isAdditionalSet
+              ? _additionalSetDoneTitle(completedSetInCycle - 1)
+              : 'Set $_currentRound Complete!',
+          body: 'Starting break $_currentRound',
+          soundName: 'bell_sound',
+        );
+        _isBreak = true;
+        _remainingSeconds = _breakSeconds;
+      } else {
+        final nextSetInCycle = _completedSetsInCycle + 1;
+        _fireEvent(
+          type: 'notify',
+          title: isAdditionalSet
+              ? _additionalSetDoneTitle(completedSetInCycle - 1)
+              : 'Set $_currentRound Complete!',
+          body: 'Start ${_setLabelForCycleSet(nextSetInCycle)}',
+          soundName: 'bell_sound',
+        );
+        _isBreak = false;
+        _remainingSeconds = _durationForSetInCycle(nextSetInCycle);
+      }
     }
 
+    FlutterForegroundTask.saveData(
+      key: _kStateCompletedSetsInCycle,
+      value: _completedSetsInCycle,
+    );
     _warnedThisPhase = false;
 
     FlutterForegroundTask.sendDataToMain(_tickPayload());
@@ -241,6 +330,15 @@ class _WorkoutTaskHandler extends TaskHandler {
         _isForeground = isFg;
         FlutterForegroundTask.saveData(key: _kStateIsForeground, value: isFg);
       }
+    } else if (cmd == 'setAdditionalSets') {
+      final additionalSets = data['additionalSetsBeforeBreak'];
+      if (additionalSets is int) {
+        _additionalSetsBeforeBreak = additionalSets.clamp(0, 2);
+        FlutterForegroundTask.saveData(
+          key: _kWsAdditionalSetsBeforeBreak,
+          value: _additionalSetsBeforeBreak,
+        );
+      }
     }
   }
 
@@ -274,11 +372,16 @@ class _WorkoutTaskHandler extends TaskHandler {
       'remainingSeconds': _remainingSeconds,
       'isBreak': _isBreak,
       'isRunning': _isRunning,
+      'additionalSetsBeforeBreak': _additionalSetsBeforeBreak,
+      'completedSetsInCycle': _completedSetsInCycle,
+      'effectiveSetsBeforeBreak': _effectiveSetsBeforeBreak(),
     };
   }
 
   Future<void> _updateOngoingNotification() async {
-    final phaseLabel = _isBreak ? 'Break' : 'Set $_currentRound/$_numberOfSets';
+    final phaseLabel = _isBreak
+        ? 'Break'
+        : 'Set $_currentRound/$_numberOfSets • ${_completedSetsInCycle + 1}/${_effectiveSetsBeforeBreak()}';
     final time = _formatTime(_remainingSeconds);
     await FlutterForegroundTask.updateService(
       notificationTitle: 'NextSet',
@@ -408,5 +511,33 @@ class _WorkoutTaskHandler extends TaskHandler {
     final minutes = seconds ~/ 60;
     final remainingSeconds = seconds % 60;
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  int _effectiveSetsBeforeBreak() => 1 + _additionalSetsBeforeBreak;
+
+  int _durationForSetInCycle(int setInCycle) {
+    if (setInCycle <= 1) return _setSeconds;
+    if (setInCycle == 2) return _firstAdditionalSetSeconds;
+    return _secondAdditionalSetSeconds;
+  }
+
+  String _additionalSetDoneTitle(int additionalSetIndex) {
+    if (additionalSetIndex == 1) {
+      return '1st additional set done';
+    }
+    if (additionalSetIndex == 2) {
+      return '2nd additional set done';
+    }
+    return '${additionalSetIndex}th additional set done';
+  }
+
+  String _setLabelForCycleSet(int setInCycle) {
+    if (setInCycle <= 1) {
+      return 'Set $_currentRound';
+    }
+    if (setInCycle == 2) {
+      return '1st additional set';
+    }
+    return '2nd additional set';
   }
 }
