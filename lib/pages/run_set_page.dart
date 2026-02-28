@@ -261,31 +261,6 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
     await _startWorkoutService();
   }
 
-  Future<void> _addAdditionalSet() async {
-    if (_hasStarted || _additionalSetsBeforeBreak >= 2) return;
-
-    final updatedAdditionalSets = (_additionalSetsBeforeBreak + 1).clamp(0, 2);
-    final updatedSet = _workoutSet.copyWith(
-      additionalSetsBeforeBreak: updatedAdditionalSets,
-      updatedAt: DateTime.now(),
-    );
-
-    await _storageService.updateSet(updatedSet);
-
-    if (!mounted) return;
-    setState(() {
-      _workoutSet = updatedSet;
-      _additionalSetsBeforeBreak = updatedAdditionalSets;
-    });
-
-    if (_hasStarted) {
-      FlutterForegroundTask.sendDataToTask(<String, Object>{
-        'cmd': 'setAdditionalSets',
-        'additionalSetsBeforeBreak': updatedAdditionalSets,
-      });
-    }
-  }
-
   void _pauseTimer() async {
     setState(() {
       _isRunning = false;
@@ -480,18 +455,6 @@ class _RunSetPageState extends State<RunSetPage> with WidgetsBindingObserver {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               const SizedBox(height: 12),
-              if (!_hasStarted)
-                OutlinedButton.icon(
-                  onPressed: _additionalSetsBeforeBreak >= 2
-                      ? null
-                      : _addAdditionalSet,
-                  icon: const Icon(Icons.add),
-                  label: Text(
-                    _additionalSetsBeforeBreak >= 2
-                        ? 'Additional sets maxed (2)'
-                        : 'Add set before break',
-                  ),
-                ),
 
               if (showNotificationLogs) ...[
                 const SizedBox(height: 32),
