@@ -1,9 +1,7 @@
 name: next_set
 description: "A new Flutter project."
 publish_to: "none"
-version: 1.0.0+10
-
-# last version was 1.0.0+10
+version: 1.0.1+11
 
 environment:
   sdk: ^3.10.4
