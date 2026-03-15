@@ -1,5 +1,9 @@
 # next_set
 
+## Build
+
+flutter build apk --release
+
 Application is called NextSet.
 
 The application be the timer for sets in the gym.
