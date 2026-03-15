@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'pages/sets_list_page.dart';
 import 'pages/create_edit_set_page.dart';
 import 'pages/run_set_page.dart';
 import 'models/workout_set.dart';
@@ -253,28 +252,11 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Section title with view all button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'My Sets',
-                          style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        if (_sets.isNotEmpty)
-                          TextButton(
-                            onPressed: () async {
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const SetsListPage(),
-                                ),
-                              );
-                              _loadSets();
-                            },
-                            child: const Text('View All'),
-                          ),
-                      ],
+                    // Section title
+                    Text(
+                      'My Sets',
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
 
@@ -401,6 +383,27 @@ class _HomePageState extends State<HomePage> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          _editSet(set);
+                        },
+                        tooltip: 'Edit',
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          _confirmDelete(set);
+                        },
+                        tooltip: 'Delete',
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -450,5 +453,56 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _editSet(WorkoutSet set) async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CreateEditSetPage(existingSet: set),
+      ),
+    );
+
+    if (result != null && mounted) {
+      await _loadSets();
+    }
+  }
+
+  void _confirmDelete(WorkoutSet set) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Set'),
+        content: Text('Are you sure you want to delete "${set.name}"?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              _deleteSet(set.id);
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _deleteSet(String id) async {
+    await _storageService.deleteSet(id);
+    await _loadSets();
+
+    if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Set deleted')));
+    }
   }
 }
