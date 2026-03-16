@@ -2,7 +2,7 @@
 
 ## Build
 
-flutter build apk --release
+flutter build aab --release
 
 Application is called NextSet.
 
