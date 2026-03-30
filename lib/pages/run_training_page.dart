@@ -190,6 +190,20 @@ class _RunTrainingPageState extends State<RunTrainingPage> {
                   ),
               ],
             ),
+
+            // Description (how to run this cycle)
+            if (cycle.description != null && cycle.description!.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Text(
+                cycle.description!,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: isDone
+                      ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.35)
+                      : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.65),
+                ),
+              ),
+            ],
+
             const SizedBox(height: 12),
 
             // Progress bar

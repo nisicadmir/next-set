@@ -18,8 +18,9 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
   final _nameController = TextEditingController();
   final TrainingStorageService _storageService = TrainingStorageService();
 
-  // Each cycle has a name controller and a repeats value
+  // Each cycle has a name controller, description controller, and a repeats value
   final List<TextEditingController> _cycleNameControllers = [];
+  final List<TextEditingController> _cycleDescriptionControllers = [];
   final List<int> _cycleRepeats = [];
 
   bool _isSaving = false;
@@ -34,6 +35,9 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
       _nameController.text = t.name;
       for (final cycle in t.cycles) {
         _cycleNameControllers.add(TextEditingController(text: cycle.name));
+        _cycleDescriptionControllers.add(
+          TextEditingController(text: cycle.description ?? ''),
+        );
         _cycleRepeats.add(cycle.repeats);
       }
     } else {
@@ -48,12 +52,16 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
     for (final c in _cycleNameControllers) {
       c.dispose();
     }
+    for (final c in _cycleDescriptionControllers) {
+      c.dispose();
+    }
     super.dispose();
   }
 
   void _addCycle() {
     setState(() {
       _cycleNameControllers.add(TextEditingController());
+      _cycleDescriptionControllers.add(TextEditingController());
       _cycleRepeats.add(5);
     });
   }
@@ -62,6 +70,8 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
     setState(() {
       _cycleNameControllers[index].dispose();
       _cycleNameControllers.removeAt(index);
+      _cycleDescriptionControllers[index].dispose();
+      _cycleDescriptionControllers.removeAt(index);
       _cycleRepeats.removeAt(index);
     });
   }
@@ -107,10 +117,14 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
 
     final cycles = List.generate(
       _cycleNameControllers.length,
-      (i) => TrainingCycle(
-        name: _cycleNameControllers[i].text.trim(),
-        repeats: _cycleRepeats[i],
-      ),
+      (i) {
+        final desc = _cycleDescriptionControllers[i].text.trim();
+        return TrainingCycle(
+          name: _cycleNameControllers[i].text.trim(),
+          repeats: _cycleRepeats[i],
+          description: desc.isEmpty ? null : desc,
+        );
+      },
     );
 
     final now = DateTime.now();
@@ -171,21 +185,11 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
               const SizedBox(height: 24),
 
               // Cycles header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Cycles',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton.icon(
-                    onPressed: _addCycle,
-                    icon: const Icon(Icons.add),
-                    label: const Text('Add Cycle'),
-                  ),
-                ],
+              Text(
+                'Cycles',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
 
@@ -209,7 +213,22 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
                 return _buildCycleRow(index);
               }),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 8),
+
+              // Add Cycle button below cycles
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: _addCycle,
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add Cycle'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
 
               // Save button
               SizedBox(
@@ -291,6 +310,20 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
                 }
                 return null;
               },
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _cycleDescriptionControllers[index],
+              textCapitalization: TextCapitalization.sentences,
+              decoration: const InputDecoration(
+                labelText: 'Description (optional)',
+                hintText: 'e.g. Keep your back straight',
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+              inputFormatters: [LengthLimitingTextInputFormatter(120)],
+              maxLines: 2,
+              minLines: 1,
             ),
             const SizedBox(height: 12),
             Row(
