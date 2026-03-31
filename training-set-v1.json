@@ -4,531 +4,1591 @@
     {
       "name": "Legs 1 — Squat Focus",
       "cycles": [
-        { "name": "Barbell Squat", "repeats": 5, "description": "Keep chest up, knees tracking toes" },
-        { "name": "Romanian Deadlift", "repeats": 4, "description": "Hinge at hips, soft knees" },
-        { "name": "Leg Press", "repeats": 4 },
-        { "name": "Leg Curl", "repeats": 3 },
-        { "name": "Standing Calf Raise", "repeats": 4 }
+        {
+          "name": "Barbell Squat",
+          "repeats": 5,
+          "description": "Brace hard, keep chest tall, and drive knees over toes."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 4,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        },
+        {
+          "name": "Leg Press",
+          "repeats": 4,
+          "description": "Use a shoulder-width stance, lower deep, and drive evenly through the platform."
+        },
+        {
+          "name": "Leg Curl",
+          "repeats": 3,
+          "description": "Keep hips down and squeeze hamstrings through the full curl."
+        },
+        {
+          "name": "Standing Calf Raise",
+          "repeats": 4,
+          "description": "Drop heels deep and pause hard at peak contraction."
+        }
       ]
     },
     {
       "name": "Legs 2 — Deadlift Focus",
       "cycles": [
-        { "name": "Conventional Deadlift", "repeats": 5, "description": "Drive floor away, brace core" },
-        { "name": "Bulgarian Split Squat", "repeats": 4, "description": "Rear foot elevated, knee to floor" },
-        { "name": "Leg Extension", "repeats": 3 },
-        { "name": "Seated Leg Curl", "repeats": 3 },
-        { "name": "Seated Calf Raise", "repeats": 4 }
+        {
+          "name": "Conventional Deadlift",
+          "repeats": 5,
+          "description": "Brace before the pull and push the floor away."
+        },
+        {
+          "name": "Bulgarian Split Squat",
+          "repeats": 4,
+          "description": "Stay tall and let the rear knee drop straight down."
+        },
+        {
+          "name": "Leg Extension",
+          "repeats": 3,
+          "description": "Control the lowering and pause with quads contracted."
+        },
+        {
+          "name": "Seated Leg Curl",
+          "repeats": 3,
+          "description": "Pin hips down and curl through a full range."
+        },
+        {
+          "name": "Seated Calf Raise",
+          "repeats": 4,
+          "description": "Pause at the stretch and drive through the balls of the feet."
+        }
       ]
     },
     {
       "name": "Legs 3 — Quad Pump",
       "cycles": [
-        { "name": "Hack Squat", "repeats": 4 },
-        { "name": "Leg Press", "repeats": 4, "description": "High foot placement for quads" },
-        { "name": "Leg Extension", "repeats": 4, "description": "Squeeze at top" },
-        { "name": "Walking Lunge", "repeats": 3 },
-        { "name": "Leg Curl", "repeats": 3 }
+        {
+          "name": "Hack Squat",
+          "repeats": 4,
+          "description": "Keep lower back on the pad and drive through mid-foot."
+        },
+        {
+          "name": "Leg Press",
+          "repeats": 4,
+          "description": "Use a shoulder-width stance, lower deep, and drive evenly through the platform."
+        },
+        {
+          "name": "Leg Extension",
+          "repeats": 4,
+          "description": "Control the lowering and pause with quads contracted."
+        },
+        {
+          "name": "Walking Lunge",
+          "repeats": 3,
+          "description": "Take long steps and lower under control each rep."
+        },
+        {
+          "name": "Leg Curl",
+          "repeats": 3,
+          "description": "Keep hips down and squeeze hamstrings through the full curl."
+        }
       ]
     },
     {
       "name": "Legs 4 — Hamstring & Glute",
       "cycles": [
-        { "name": "Sumo Deadlift", "repeats": 4 },
-        { "name": "Hip Thrust", "repeats": 4, "description": "Drive hips fully up, squeeze glutes" },
-        { "name": "Romanian Deadlift", "repeats": 4 },
-        { "name": "Lying Leg Curl", "repeats": 4 },
-        { "name": "Cable Kickback", "repeats": 3 }
+        {
+          "name": "Sumo Deadlift",
+          "repeats": 4,
+          "description": "Spread the floor and keep hips close to the bar."
+        },
+        {
+          "name": "Hip Thrust",
+          "repeats": 4,
+          "description": "Drive through heels and finish with glutes, not low back."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 4,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        },
+        {
+          "name": "Lying Leg Curl",
+          "repeats": 4,
+          "description": "Keep hips glued down and curl without swinging."
+        },
+        {
+          "name": "Cable Kickback",
+          "repeats": 3,
+          "description": "Keep pelvis square and squeeze the glute at full extension."
+        }
       ]
     },
     {
       "name": "Chest 1 — Power",
       "cycles": [
-        { "name": "Barbell Bench Press", "repeats": 5, "description": "Arch back, retract scapula, feet flat" },
-        { "name": "Incline Barbell Press", "repeats": 4 },
-        { "name": "Weighted Dip", "repeats": 4, "description": "Lean forward slightly for chest emphasis" },
-        { "name": "Cable Fly", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 5,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Incline Barbell Press",
+          "repeats": 4,
+          "description": "Lower to the upper chest and press without flaring elbows."
+        },
+        {
+          "name": "Weighted Dip",
+          "repeats": 4,
+          "description": "Lean slightly forward and control depth on the way down."
+        },
+        {
+          "name": "Cable Fly",
+          "repeats": 3,
+          "description": "Maintain a soft elbow bend and bring hands together under control."
+        }
       ]
     },
     {
       "name": "Chest 2 — Hypertrophy",
       "cycles": [
-        { "name": "Incline Dumbbell Press", "repeats": 4 },
-        { "name": "Flat Dumbbell Press", "repeats": 4 },
-        { "name": "Cable Fly (Low to High)", "repeats": 3, "description": "Feel the stretch at bottom" },
-        { "name": "Decline Push-up", "repeats": 3 },
-        { "name": "Machine Chest Press", "repeats": 3 }
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 4,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Dumbbell Bench Press",
+          "repeats": 4,
+          "description": "Touch lightly, control the descent, and press evenly."
+        },
+        {
+          "name": "Cable Fly (Low to High)",
+          "repeats": 3,
+          "description": "Sweep up and in to bias the upper chest."
+        },
+        {
+          "name": "Decline Push-up",
+          "repeats": 3,
+          "description": "Keep body rigid and lower chest between the hands."
+        },
+        {
+          "name": "Machine Chest Press",
+          "repeats": 3,
+          "description": "Set the seat so handles align with mid-chest."
+        }
       ]
     },
     {
       "name": "Chest 3 — Upper Chest",
       "cycles": [
-        { "name": "Incline Barbell Press", "repeats": 5 },
-        { "name": "Incline Dumbbell Fly", "repeats": 4 },
-        { "name": "Low Cable Fly", "repeats": 4, "description": "Pull cables upward, hands meet at chin level" },
-        { "name": "Incline Machine Press", "repeats": 3 }
+        {
+          "name": "Incline Barbell Press",
+          "repeats": 5,
+          "description": "Lower to the upper chest and press without flaring elbows."
+        },
+        {
+          "name": "Incline Dumbbell Fly",
+          "repeats": 4,
+          "description": "Open under control and stop before shoulders roll forward."
+        },
+        {
+          "name": "Low Cable Fly",
+          "repeats": 4,
+          "description": "Sweep low to high and meet hands near upper chest level."
+        },
+        {
+          "name": "Incline Machine Press",
+          "repeats": 3,
+          "description": "Set the seat so handles track with the upper chest."
+        }
       ]
     },
     {
       "name": "Chest 4 — Cable Finisher",
       "cycles": [
-        { "name": "Flat Barbell Bench Press", "repeats": 4 },
-        { "name": "High Cable Fly", "repeats": 4, "description": "Arms wide, cross hands at bottom" },
-        { "name": "Mid Cable Fly", "repeats": 3 },
-        { "name": "Low Cable Fly", "repeats": 3 },
-        { "name": "Cable Press-out", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "High Cable Fly",
+          "repeats": 4,
+          "description": "Sweep down and together while keeping the chest lifted."
+        },
+        {
+          "name": "Mid Cable Fly",
+          "repeats": 3,
+          "description": "Bring hands together at chest height with soft elbows."
+        },
+        {
+          "name": "Low Cable Fly",
+          "repeats": 3,
+          "description": "Sweep low to high and meet hands near upper chest level."
+        },
+        {
+          "name": "Cable Press-out",
+          "repeats": 3,
+          "description": "Press straight ahead and squeeze chest at full reach."
+        }
       ]
     },
     {
       "name": "Back 1 — Width",
       "cycles": [
-        { "name": "Pull-up", "repeats": 4, "description": "Full hang, chin clears bar" },
-        { "name": "Lat Pulldown", "repeats": 4 },
-        { "name": "Wide-grip Cable Row", "repeats": 3 },
-        { "name": "Straight-arm Pulldown", "repeats": 3, "description": "Keep arms straight throughout" }
+        {
+          "name": "Pull-up",
+          "repeats": 4,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Lat Pulldown",
+          "repeats": 4,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Wide-grip Cable Row",
+          "repeats": 3,
+          "description": "Pull wide to the upper waist and squeeze mid-back."
+        },
+        {
+          "name": "Straight-arm Pulldown",
+          "repeats": 3,
+          "description": "Keep a slight elbow bend and drive hands to thighs."
+        }
       ]
     },
     {
       "name": "Back 2 — Thickness",
       "cycles": [
-        { "name": "Barbell Row", "repeats": 4, "description": "Pull to lower chest, keep back flat" },
-        { "name": "T-Bar Row", "repeats": 4 },
-        { "name": "Seated Cable Row", "repeats": 4 },
-        { "name": "Single-arm Dumbbell Row", "repeats": 3 },
-        { "name": "Face Pull", "repeats": 3 }
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "T-Bar Row",
+          "repeats": 4,
+          "description": "Brace chest and pull elbows back together."
+        },
+        {
+          "name": "Seated Cable Row",
+          "repeats": 4,
+          "description": "Sit tall, pull to the midsection, and control the reach."
+        },
+        {
+          "name": "Single-arm Dumbbell Row",
+          "repeats": 3,
+          "description": "Pull elbow to hip and resist torso rotation."
+        },
+        {
+          "name": "Face Pull",
+          "repeats": 3,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        }
       ]
     },
     {
       "name": "Back 3 — Pull Day",
       "cycles": [
-        { "name": "Weighted Pull-up", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Lat Pulldown", "repeats": 3 },
-        { "name": "Cable Row", "repeats": 3 },
-        { "name": "Dumbbell Shrug", "repeats": 3 }
+        {
+          "name": "Weighted Pull-up",
+          "repeats": 4,
+          "description": "Stay tight through the trunk and pull chest up."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Lat Pulldown",
+          "repeats": 3,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Cable Row",
+          "repeats": 3,
+          "description": "Initiate with the shoulder blades and pull toward the lower ribs."
+        },
+        {
+          "name": "Dumbbell Shrug",
+          "repeats": 3,
+          "description": "Lift straight up, pause briefly, and do not roll shoulders."
+        }
       ]
     },
     {
       "name": "Shoulders 1 — Press Heavy",
       "cycles": [
-        { "name": "Overhead Barbell Press", "repeats": 5, "description": "Bar path straight up, core tight" },
-        { "name": "Arnold Press", "repeats": 4 },
-        { "name": "Lateral Raise", "repeats": 4 },
-        { "name": "Front Raise", "repeats": 3 }
+        {
+          "name": "Overhead Barbell Press",
+          "repeats": 5,
+          "description": "Squeeze glutes, brace abs, and press straight overhead."
+        },
+        {
+          "name": "Arnold Press",
+          "repeats": 4,
+          "description": "Rotate smoothly as you press and keep ribs down."
+        },
+        {
+          "name": "Lateral Raise",
+          "repeats": 4,
+          "description": "Lead with elbows and stop around shoulder height."
+        },
+        {
+          "name": "Front Raise",
+          "repeats": 3,
+          "description": "Lift only to shoulder height without swinging the torso."
+        }
       ]
     },
     {
       "name": "Shoulders 2 — Lateral Focus",
       "cycles": [
-        { "name": "Seated Dumbbell Press", "repeats": 4 },
-        { "name": "Cable Lateral Raise", "repeats": 4, "description": "Cable gives constant tension" },
-        { "name": "Dumbbell Lateral Raise", "repeats": 4 },
-        { "name": "Upright Row", "repeats": 3 },
-        { "name": "Rear Delt Fly", "repeats": 3 }
+        {
+          "name": "Seated Dumbbell Press",
+          "repeats": 4,
+          "description": "Stay tall on the bench and press without flaring ribs."
+        },
+        {
+          "name": "Cable Lateral Raise",
+          "repeats": 4,
+          "description": "Lead with the elbow and stop around shoulder height."
+        },
+        {
+          "name": "Dumbbell Lateral Raise",
+          "repeats": 4,
+          "description": "Raise out wide with soft elbows and no shrug."
+        },
+        {
+          "name": "Upright Row",
+          "repeats": 3,
+          "description": "Lead with elbows and stop before shoulders pinch."
+        },
+        {
+          "name": "Rear Delt Fly",
+          "repeats": 3,
+          "description": "Sweep wide and squeeze rear delts without shrugging."
+        }
       ]
     },
     {
       "name": "Shoulders 3 — Rear Delt",
       "cycles": [
-        { "name": "Face Pull", "repeats": 4, "description": "Pull to face, elbows high" },
-        { "name": "Reverse Pec Deck", "repeats": 4 },
-        { "name": "Bent-over Dumbbell Fly", "repeats": 4 },
-        { "name": "Band Pull-apart", "repeats": 3 },
-        { "name": "Overhead Press", "repeats": 3 }
+        {
+          "name": "Face Pull",
+          "repeats": 4,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "repeats": 4,
+          "description": "Keep chest on the pad and pull elbows wide."
+        },
+        {
+          "name": "Bent-over Dumbbell Fly",
+          "repeats": 4,
+          "description": "Use soft elbows and squeeze rear delts without shrugging."
+        },
+        {
+          "name": "Band Pull-apart",
+          "repeats": 3,
+          "description": "Keep shoulders down and finish by squeezing the upper back."
+        },
+        {
+          "name": "Overhead Press",
+          "repeats": 3,
+          "description": "Brace hard and keep the bar path close to the face."
+        }
       ]
     },
     {
       "name": "Biceps 1 — Strength",
       "cycles": [
-        { "name": "Barbell Curl", "repeats": 4, "description": "Elbows stay at sides" },
-        { "name": "Incline Dumbbell Curl", "repeats": 3, "description": "Full stretch at bottom" },
-        { "name": "Hammer Curl", "repeats": 3 },
-        { "name": "Cable Curl", "repeats": 3 }
+        {
+          "name": "Barbell Curl",
+          "repeats": 4,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        },
+        {
+          "name": "Incline Dumbbell Curl",
+          "repeats": 3,
+          "description": "Let arms hang long and fully supinate as you curl."
+        },
+        {
+          "name": "Hammer Curl",
+          "repeats": 3,
+          "description": "Use a neutral grip, keep elbows still, and squeeze through the forearms."
+        },
+        {
+          "name": "Cable Curl",
+          "repeats": 3,
+          "description": "Keep elbows fixed and squeeze hard at peak contraction."
+        }
       ]
     },
     {
       "name": "Biceps 2 — Peak Pump",
       "cycles": [
-        { "name": "EZ-bar Curl", "repeats": 4 },
-        { "name": "Concentration Curl", "repeats": 3, "description": "Supinate at top for peak contraction" },
-        { "name": "Spider Curl", "repeats": 3 },
-        { "name": "Cable Curl (High)", "repeats": 3 },
-        { "name": "Reverse Curl", "repeats": 3 }
+        {
+          "name": "EZ-bar Curl",
+          "repeats": 4,
+          "description": "Use a controlled tempo and keep elbows tucked."
+        },
+        {
+          "name": "Concentration Curl",
+          "repeats": 3,
+          "description": "Rotate the pinky up and pause briefly at the top."
+        },
+        {
+          "name": "Spider Curl",
+          "repeats": 3,
+          "description": "Let arms hang straight down and squeeze at the top."
+        },
+        {
+          "name": "Cable Curl (High)",
+          "repeats": 3,
+          "description": "Hold elbows high and contract like a front double biceps pose."
+        },
+        {
+          "name": "Reverse Curl",
+          "repeats": 3,
+          "description": "Keep wrists neutral and lift without momentum."
+        }
       ]
     },
     {
       "name": "Triceps 1 — Strength",
       "cycles": [
-        { "name": "Close-grip Bench Press", "repeats": 4, "description": "Elbows in, lower to sternum" },
-        { "name": "Skull Crusher", "repeats": 4 },
-        { "name": "Tricep Pushdown", "repeats": 3 },
-        { "name": "Overhead Tricep Extension", "repeats": 3 }
+        {
+          "name": "Close-grip Bench Press",
+          "repeats": 4,
+          "description": "Tuck elbows slightly and lower with steady control."
+        },
+        {
+          "name": "Skull Crusher",
+          "repeats": 4,
+          "description": "Lower behind the forehead and extend without elbows drifting."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        },
+        {
+          "name": "Overhead Triceps Extension",
+          "repeats": 3,
+          "description": "Keep elbows pointed up and stretch fully overhead."
+        }
       ]
     },
     {
       "name": "Triceps 2 — Pump",
       "cycles": [
-        { "name": "Dip", "repeats": 4, "description": "Upright torso for tricep emphasis" },
-        { "name": "Cable Pushdown", "repeats": 4 },
-        { "name": "Cable Overhead Extension", "repeats": 3 },
-        { "name": "Kickback", "repeats": 3 },
-        { "name": "Diamond Push-up", "repeats": 3 }
+        {
+          "name": "Dip",
+          "repeats": 4,
+          "description": "Stay more upright to bias triceps and lock out strongly."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 4,
+          "description": "Pin elbows to your sides and lock out with control."
+        },
+        {
+          "name": "Overhead Triceps Extension",
+          "repeats": 3,
+          "description": "Keep elbows pointed up and stretch fully overhead."
+        },
+        {
+          "name": "Triceps Kickback",
+          "repeats": 3,
+          "description": "Hold upper arm still and fully straighten the elbow."
+        },
+        {
+          "name": "Diamond Push-up",
+          "repeats": 3,
+          "description": "Keep elbows close and maintain a straight body line."
+        }
       ]
     },
     {
       "name": "Arms — Combined",
       "cycles": [
-        { "name": "Barbell Curl", "repeats": 3 },
-        { "name": "Close-grip Bench Press", "repeats": 3 },
-        { "name": "Hammer Curl", "repeats": 3 },
-        { "name": "Tricep Pushdown", "repeats": 3 },
-        { "name": "Cable Curl", "repeats": 3 },
-        { "name": "Overhead Extension", "repeats": 3 }
+        {
+          "name": "Barbell Curl",
+          "repeats": 3,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        },
+        {
+          "name": "Close-grip Bench Press",
+          "repeats": 3,
+          "description": "Tuck elbows slightly and lower with steady control."
+        },
+        {
+          "name": "Hammer Curl",
+          "repeats": 3,
+          "description": "Use a neutral grip, keep elbows still, and squeeze through the forearms."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        },
+        {
+          "name": "Cable Curl",
+          "repeats": 3,
+          "description": "Keep elbows fixed and squeeze hard at peak contraction."
+        },
+        {
+          "name": "Overhead Triceps Extension",
+          "repeats": 3,
+          "description": "Keep elbows pointed up and stretch fully overhead."
+        }
       ]
     },
     {
       "name": "Core 1 — Strength",
       "cycles": [
-        { "name": "Weighted Plank", "repeats": 4, "description": "Plate on back, hold 30–60 s" },
-        { "name": "Cable Crunch", "repeats": 4 },
-        { "name": "Hanging Leg Raise", "repeats": 4 },
-        { "name": "Ab Wheel Rollout", "repeats": 3 }
+        {
+          "name": "Weighted Plank",
+          "repeats": 4,
+          "description": "Brace hard and hold a straight line under load."
+        },
+        {
+          "name": "Cable Crunch",
+          "repeats": 4,
+          "description": "Curl the spine down instead of pulling only with the arms."
+        },
+        {
+          "name": "Hanging Leg Raise",
+          "repeats": 4,
+          "description": "Posteriorly tilt the pelvis and avoid swinging."
+        },
+        {
+          "name": "Ab Wheel Rollout",
+          "repeats": 3,
+          "description": "Brace ribs down and roll only as far as you can control."
+        }
       ]
     },
     {
       "name": "Core 2 — Endurance",
       "cycles": [
-        { "name": "Plank", "repeats": 3, "description": "3 × 60 s" },
-        { "name": "Side Plank", "repeats": 3 },
-        { "name": "Bicycle Crunch", "repeats": 4 },
-        { "name": "Mountain Climber", "repeats": 3 },
-        { "name": "Russian Twist", "repeats": 3 }
+        {
+          "name": "Plank",
+          "repeats": 3,
+          "description": "Squeeze glutes, brace abs, and hold a straight line."
+        },
+        {
+          "name": "Side Plank",
+          "repeats": 3,
+          "description": "Stack shoulders and hips and hold a straight line."
+        },
+        {
+          "name": "Bicycle Crunch",
+          "repeats": 4,
+          "description": "Rotate through the trunk and fully extend the free leg."
+        },
+        {
+          "name": "Mountain Climber",
+          "repeats": 3,
+          "description": "Keep hips low and drive knees quickly under the torso."
+        },
+        {
+          "name": "Russian Twist",
+          "repeats": 3,
+          "description": "Rotate the ribs side to side without collapsing posture."
+        }
       ]
     },
     {
-      "name": "Push 1",
+      "name": "Push 1 — Press Strength",
       "cycles": [
-        { "name": "Barbell Bench Press", "repeats": 4 },
-        { "name": "Overhead Press", "repeats": 4 },
-        { "name": "Incline Dumbbell Press", "repeats": 3 },
-        { "name": "Lateral Raise", "repeats": 3 },
-        { "name": "Tricep Pushdown", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Overhead Press",
+          "repeats": 4,
+          "description": "Brace hard and keep the bar path close to the face."
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 3,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Lateral Raise",
+          "repeats": 3,
+          "description": "Lead with elbows and stop around shoulder height."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        }
       ]
     },
     {
-      "name": "Push 2",
+      "name": "Push 2 — Chest & Shoulders",
       "cycles": [
-        { "name": "Incline Barbell Press", "repeats": 4 },
-        { "name": "Seated Dumbbell Press", "repeats": 4 },
-        { "name": "Cable Fly", "repeats": 3 },
-        { "name": "Cable Lateral Raise", "repeats": 3 },
-        { "name": "Skull Crusher", "repeats": 3 }
+        {
+          "name": "Incline Barbell Press",
+          "repeats": 4,
+          "description": "Lower to the upper chest and press without flaring elbows."
+        },
+        {
+          "name": "Seated Dumbbell Press",
+          "repeats": 4,
+          "description": "Stay tall on the bench and press without flaring ribs."
+        },
+        {
+          "name": "Cable Fly",
+          "repeats": 3,
+          "description": "Maintain a soft elbow bend and bring hands together under control."
+        },
+        {
+          "name": "Cable Lateral Raise",
+          "repeats": 3,
+          "description": "Lead with the elbow and stop around shoulder height."
+        },
+        {
+          "name": "Skull Crusher",
+          "repeats": 3,
+          "description": "Lower behind the forehead and extend without elbows drifting."
+        }
       ]
     },
     {
-      "name": "Pull 1",
+      "name": "Pull 1 — Vertical Pull",
       "cycles": [
-        { "name": "Weighted Pull-up", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Face Pull", "repeats": 3 },
-        { "name": "Cable Curl", "repeats": 3 },
-        { "name": "Hammer Curl", "repeats": 3 }
+        {
+          "name": "Weighted Pull-up",
+          "repeats": 4,
+          "description": "Stay tight through the trunk and pull chest up."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Face Pull",
+          "repeats": 3,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        },
+        {
+          "name": "Cable Curl",
+          "repeats": 3,
+          "description": "Keep elbows fixed and squeeze hard at peak contraction."
+        },
+        {
+          "name": "Hammer Curl",
+          "repeats": 3,
+          "description": "Use a neutral grip, keep elbows still, and squeeze through the forearms."
+        }
       ]
     },
     {
-      "name": "Pull 2",
+      "name": "Pull 2 — Row & Curl",
       "cycles": [
-        { "name": "Lat Pulldown", "repeats": 4 },
-        { "name": "Seated Cable Row", "repeats": 4 },
-        { "name": "Reverse Pec Deck", "repeats": 3 },
-        { "name": "EZ-bar Curl", "repeats": 3 },
-        { "name": "Incline Dumbbell Curl", "repeats": 3 }
+        {
+          "name": "Lat Pulldown",
+          "repeats": 4,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Seated Cable Row",
+          "repeats": 4,
+          "description": "Sit tall, pull to the midsection, and control the reach."
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "repeats": 3,
+          "description": "Keep chest on the pad and pull elbows wide."
+        },
+        {
+          "name": "EZ-bar Curl",
+          "repeats": 3,
+          "description": "Use a controlled tempo and keep elbows tucked."
+        },
+        {
+          "name": "Incline Dumbbell Curl",
+          "repeats": 3,
+          "description": "Let arms hang long and fully supinate as you curl."
+        }
       ]
     },
     {
-      "name": "Full Body 1",
+      "name": "Full Body 1 — Barbell Base",
       "cycles": [
-        { "name": "Barbell Squat", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Bench Press", "repeats": 4 },
-        { "name": "Overhead Press", "repeats": 3 },
-        { "name": "Romanian Deadlift", "repeats": 3 }
+        {
+          "name": "Barbell Squat",
+          "repeats": 4,
+          "description": "Brace hard, keep chest tall, and drive knees over toes."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Overhead Press",
+          "repeats": 3,
+          "description": "Brace hard and keep the bar path close to the face."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 3,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        }
       ]
     },
     {
-      "name": "Full Body 2",
+      "name": "Full Body 2 — Hinge & Press",
       "cycles": [
-        { "name": "Deadlift", "repeats": 4 },
-        { "name": "Pull-up", "repeats": 4 },
-        { "name": "Dumbbell Bench Press", "repeats": 4 },
-        { "name": "Lunge", "repeats": 3 },
-        { "name": "Dumbbell Shoulder Press", "repeats": 3 }
+        {
+          "name": "Conventional Deadlift",
+          "repeats": 4,
+          "description": "Brace before the pull and push the floor away."
+        },
+        {
+          "name": "Pull-up",
+          "repeats": 4,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Dumbbell Bench Press",
+          "repeats": 4,
+          "description": "Touch lightly, control the descent, and press evenly."
+        },
+        {
+          "name": "Walking Lunge",
+          "repeats": 3,
+          "description": "Take long steps and lower under control each rep."
+        },
+        {
+          "name": "Dumbbell Shoulder Press",
+          "repeats": 3,
+          "description": "Keep wrists stacked and avoid arching the low back."
+        }
       ]
     },
     {
-      "name": "Full Body 3",
+      "name": "Full Body 3 — Front Squat Focus",
       "cycles": [
-        { "name": "Front Squat", "repeats": 4 },
-        { "name": "T-Bar Row", "repeats": 4 },
-        { "name": "Incline Press", "repeats": 3 },
-        { "name": "Arnold Press", "repeats": 3 },
-        { "name": "Leg Curl", "repeats": 3 },
-        { "name": "Barbell Curl", "repeats": 3 }
+        {
+          "name": "Front Squat",
+          "repeats": 4,
+          "description": "Keep elbows high and sit down between the hips."
+        },
+        {
+          "name": "T-Bar Row",
+          "repeats": 4,
+          "description": "Brace chest and pull elbows back together."
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 3,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Arnold Press",
+          "repeats": 3,
+          "description": "Rotate smoothly as you press and keep ribs down."
+        },
+        {
+          "name": "Leg Curl",
+          "repeats": 3,
+          "description": "Keep hips down and squeeze hamstrings through the full curl."
+        },
+        {
+          "name": "Barbell Curl",
+          "repeats": 3,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        }
       ]
     },
     {
-      "name": "Upper Body 1",
+      "name": "Upper Body 1 — Compound Strength",
       "cycles": [
-        { "name": "Bench Press", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Overhead Press", "repeats": 3 },
-        { "name": "Pull-up", "repeats": 3 },
-        { "name": "Dumbbell Curl", "repeats": 3 },
-        { "name": "Tricep Pushdown", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Overhead Press",
+          "repeats": 3,
+          "description": "Brace hard and keep the bar path close to the face."
+        },
+        {
+          "name": "Pull-up",
+          "repeats": 3,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Dumbbell Curl",
+          "repeats": 3,
+          "description": "Supinate as you curl and avoid swinging the shoulders."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        }
       ]
     },
     {
-      "name": "Upper Body 2",
+      "name": "Upper Body 2 — Hypertrophy Mix",
       "cycles": [
-        { "name": "Incline Dumbbell Press", "repeats": 4 },
-        { "name": "Lat Pulldown", "repeats": 4 },
-        { "name": "Cable Fly", "repeats": 3 },
-        { "name": "Cable Row", "repeats": 3 },
-        { "name": "Lateral Raise", "repeats": 3 },
-        { "name": "EZ-bar Curl", "repeats": 3 }
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 4,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Lat Pulldown",
+          "repeats": 4,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Cable Fly",
+          "repeats": 3,
+          "description": "Maintain a soft elbow bend and bring hands together under control."
+        },
+        {
+          "name": "Cable Row",
+          "repeats": 3,
+          "description": "Initiate with the shoulder blades and pull toward the lower ribs."
+        },
+        {
+          "name": "Lateral Raise",
+          "repeats": 3,
+          "description": "Lead with elbows and stop around shoulder height."
+        },
+        {
+          "name": "EZ-bar Curl",
+          "repeats": 3,
+          "description": "Use a controlled tempo and keep elbows tucked."
+        }
       ]
     },
     {
-      "name": "Lower Body 1",
+      "name": "Lower Body 1 — Squat Base",
       "cycles": [
-        { "name": "Barbell Squat", "repeats": 5 },
-        { "name": "Romanian Deadlift", "repeats": 4 },
-        { "name": "Leg Press", "repeats": 4 },
-        { "name": "Leg Curl", "repeats": 3 },
-        { "name": "Calf Raise", "repeats": 4 }
+        {
+          "name": "Barbell Squat",
+          "repeats": 5,
+          "description": "Brace hard, keep chest tall, and drive knees over toes."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 4,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        },
+        {
+          "name": "Leg Press",
+          "repeats": 4,
+          "description": "Use a shoulder-width stance, lower deep, and drive evenly through the platform."
+        },
+        {
+          "name": "Leg Curl",
+          "repeats": 3,
+          "description": "Keep hips down and squeeze hamstrings through the full curl."
+        },
+        {
+          "name": "Calf Raise",
+          "repeats": 4,
+          "description": "Use full range and pause briefly at the top of each rep."
+        }
       ]
     },
     {
-      "name": "Lower Body 2",
+      "name": "Lower Body 2 — Posterior Chain",
       "cycles": [
-        { "name": "Conventional Deadlift", "repeats": 4 },
-        { "name": "Hip Thrust", "repeats": 4 },
-        { "name": "Walking Lunge", "repeats": 3 },
-        { "name": "Leg Extension", "repeats": 3 },
-        { "name": "Seated Calf Raise", "repeats": 4 }
+        {
+          "name": "Conventional Deadlift",
+          "repeats": 4,
+          "description": "Brace before the pull and push the floor away."
+        },
+        {
+          "name": "Hip Thrust",
+          "repeats": 4,
+          "description": "Drive through heels and finish with glutes, not low back."
+        },
+        {
+          "name": "Walking Lunge",
+          "repeats": 3,
+          "description": "Take long steps and lower under control each rep."
+        },
+        {
+          "name": "Leg Extension",
+          "repeats": 3,
+          "description": "Control the lowering and pause with quads contracted."
+        },
+        {
+          "name": "Seated Calf Raise",
+          "repeats": 4,
+          "description": "Pause at the stretch and drive through the balls of the feet."
+        }
       ]
     },
     {
       "name": "Glutes 1 — Strength",
       "cycles": [
-        { "name": "Hip Thrust", "repeats": 5, "description": "Shoulders on bench, drive through heels" },
-        { "name": "Sumo Deadlift", "repeats": 4 },
-        { "name": "Bulgarian Split Squat", "repeats": 4 },
-        { "name": "Cable Kickback", "repeats": 3 }
+        {
+          "name": "Hip Thrust",
+          "repeats": 5,
+          "description": "Drive through heels and finish with glutes, not low back."
+        },
+        {
+          "name": "Sumo Deadlift",
+          "repeats": 4,
+          "description": "Spread the floor and keep hips close to the bar."
+        },
+        {
+          "name": "Bulgarian Split Squat",
+          "repeats": 4,
+          "description": "Stay tall and let the rear knee drop straight down."
+        },
+        {
+          "name": "Cable Kickback",
+          "repeats": 3,
+          "description": "Keep pelvis square and squeeze the glute at full extension."
+        }
       ]
     },
     {
       "name": "Glutes 2 — Isolation",
       "cycles": [
-        { "name": "Glute Bridge", "repeats": 4, "description": "Pause and squeeze at top" },
-        { "name": "Cable Kickback", "repeats": 4 },
-        { "name": "Abductor Machine", "repeats": 3 },
-        { "name": "Donkey Kick", "repeats": 3 },
-        { "name": "Clamshell", "repeats": 3 }
+        {
+          "name": "Glute Bridge",
+          "repeats": 4,
+          "description": "Tuck pelvis slightly and squeeze glutes hard at the top."
+        },
+        {
+          "name": "Cable Kickback",
+          "repeats": 4,
+          "description": "Keep pelvis square and squeeze the glute at full extension."
+        },
+        {
+          "name": "Abductor Machine",
+          "repeats": 3,
+          "description": "Push knees out and pause briefly at the end range."
+        },
+        {
+          "name": "Donkey Kick",
+          "repeats": 3,
+          "description": "Keep low back quiet and drive the heel with the glute."
+        },
+        {
+          "name": "Clamshell",
+          "repeats": 3,
+          "description": "Keep heels together and rotate from the hip, not the pelvis."
+        }
       ]
     },
     {
-      "name": "Calves 1",
+      "name": "Calves 1 — Full Range",
       "cycles": [
-        { "name": "Standing Calf Raise", "repeats": 5, "description": "Full range, pause at stretch" },
-        { "name": "Seated Calf Raise", "repeats": 4 },
-        { "name": "Leg Press Calf Raise", "repeats": 4 },
-        { "name": "Single-leg Calf Raise", "repeats": 3 }
+        {
+          "name": "Standing Calf Raise",
+          "repeats": 5,
+          "description": "Drop heels deep and pause hard at peak contraction."
+        },
+        {
+          "name": "Seated Calf Raise",
+          "repeats": 4,
+          "description": "Pause at the stretch and drive through the balls of the feet."
+        },
+        {
+          "name": "Leg Press Calf Raise",
+          "repeats": 4,
+          "description": "Stretch at the bottom and finish through the big toe."
+        },
+        {
+          "name": "Single-leg Calf Raise",
+          "repeats": 3,
+          "description": "Use full range and balance without bouncing."
+        }
       ]
     },
     {
       "name": "Conditioning 1 — Strength Cardio",
       "cycles": [
-        { "name": "Kettlebell Swing", "repeats": 5, "description": "Hip hinge power, not squat" },
-        { "name": "Box Jump", "repeats": 4 },
-        { "name": "Battle Rope Wave", "repeats": 3 },
-        { "name": "Sled Push", "repeats": 4 }
+        {
+          "name": "Kettlebell Swing",
+          "repeats": 5,
+          "description": "Hinge hard and snap the hips while arms stay relaxed."
+        },
+        {
+          "name": "Box Jump",
+          "repeats": 4,
+          "description": "Jump explosively, land softly, and step down between reps."
+        },
+        {
+          "name": "Battle Rope Wave",
+          "repeats": 3,
+          "description": "Stay athletic and create smooth, powerful waves from the shoulders."
+        },
+        {
+          "name": "Sled Push",
+          "repeats": 4,
+          "description": "Stay low, drive the knees, and keep constant pressure on the sled."
+        }
       ]
     },
     {
       "name": "Conditioning 2 — HIIT",
       "cycles": [
-        { "name": "Burpee", "repeats": 4 },
-        { "name": "Jump Squat", "repeats": 4 },
-        { "name": "Mountain Climber", "repeats": 4 },
-        { "name": "High Knees", "repeats": 3 },
-        { "name": "Push-up", "repeats": 3 }
+        {
+          "name": "Burpee",
+          "repeats": 4,
+          "description": "Keep the sprawl smooth and finish each rep with full extension."
+        },
+        {
+          "name": "Jump Squat",
+          "repeats": 4,
+          "description": "Explode up, land softly, and reset balance each rep."
+        },
+        {
+          "name": "Mountain Climber",
+          "repeats": 4,
+          "description": "Keep hips low and drive knees quickly under the torso."
+        },
+        {
+          "name": "High Knees",
+          "repeats": 3,
+          "description": "Stay tall and drive knees quickly with active arms."
+        },
+        {
+          "name": "Push-up",
+          "repeats": 3,
+          "description": "Keep body rigid and reach full chest depth each rep."
+        }
       ]
     },
     {
       "name": "Mobility 1 — Hip & Thoracic",
       "cycles": [
-        { "name": "Hip 90/90 Stretch", "repeats": 3, "description": "Hold 60 s each side" },
-        { "name": "World's Greatest Stretch", "repeats": 3 },
-        { "name": "Thoracic Rotation", "repeats": 3 },
-        { "name": "Pigeon Pose", "repeats": 3 },
-        { "name": "Cat-Cow", "repeats": 3 }
+        {
+          "name": "Hip 90/90 Stretch",
+          "repeats": 3,
+          "description": "Sit tall and rotate from the hips, not the spine."
+        },
+        {
+          "name": "World's Greatest Stretch",
+          "repeats": 3,
+          "description": "Pause in each position and breathe through the transition."
+        },
+        {
+          "name": "Thoracic Rotation",
+          "repeats": 3,
+          "description": "Rotate from the upper back while keeping hips stable."
+        },
+        {
+          "name": "Pigeon Pose",
+          "repeats": 3,
+          "description": "Keep hips square and breathe into the stretch."
+        },
+        {
+          "name": "Cat-Cow",
+          "repeats": 3,
+          "description": "Move one segment at a time and match the motion to your breathing."
+        }
       ]
     },
     {
       "name": "Mobility 2 — Shoulder & Spine",
       "cycles": [
-        { "name": "Band Shoulder Dislocate", "repeats": 3, "description": "Wide grip, slow controlled arc" },
-        { "name": "Wall Slide", "repeats": 3 },
-        { "name": "Doorway Chest Stretch", "repeats": 3 },
-        { "name": "Child's Pose", "repeats": 3 },
-        { "name": "Sphinx Pose", "repeats": 3 }
+        {
+          "name": "Band Shoulder Dislocate",
+          "repeats": 3,
+          "description": "Use a wide grip and move slowly through a pain-free range."
+        },
+        {
+          "name": "Wall Slide",
+          "repeats": 3,
+          "description": "Keep forearms on the wall and reach upward smoothly."
+        },
+        {
+          "name": "Doorway Chest Stretch",
+          "repeats": 3,
+          "description": "Use gentle pressure and keep shoulders down away from ears."
+        },
+        {
+          "name": "Child's Pose",
+          "repeats": 3,
+          "description": "Reach long through the arms and breathe into the upper back."
+        },
+        {
+          "name": "Sphinx Pose",
+          "repeats": 3,
+          "description": "Lift gently through the chest and keep glutes relaxed."
+        }
       ]
     },
     {
-      "name": "Chest & Triceps",
+      "name": "Chest & Triceps — Press Accessories",
       "cycles": [
-        { "name": "Flat Barbell Bench Press", "repeats": 4 },
-        { "name": "Incline Dumbbell Press", "repeats": 3 },
-        { "name": "Cable Fly", "repeats": 3 },
-        { "name": "Skull Crusher", "repeats": 3 },
-        { "name": "Tricep Pushdown", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 3,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Cable Fly",
+          "repeats": 3,
+          "description": "Maintain a soft elbow bend and bring hands together under control."
+        },
+        {
+          "name": "Skull Crusher",
+          "repeats": 3,
+          "description": "Lower behind the forehead and extend without elbows drifting."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        }
       ]
     },
     {
-      "name": "Back & Biceps",
+      "name": "Back & Biceps — Pull Accessories",
       "cycles": [
-        { "name": "Pull-up", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Lat Pulldown", "repeats": 3 },
-        { "name": "Barbell Curl", "repeats": 3 },
-        { "name": "Hammer Curl", "repeats": 3 }
+        {
+          "name": "Pull-up",
+          "repeats": 4,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Lat Pulldown",
+          "repeats": 3,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Barbell Curl",
+          "repeats": 3,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        },
+        {
+          "name": "Hammer Curl",
+          "repeats": 3,
+          "description": "Use a neutral grip, keep elbows still, and squeeze through the forearms."
+        }
       ]
     },
     {
-      "name": "Shoulders & Arms",
+      "name": "Shoulders & Arms — Delts & Arms",
       "cycles": [
-        { "name": "Overhead Press", "repeats": 4 },
-        { "name": "Lateral Raise", "repeats": 3 },
-        { "name": "Face Pull", "repeats": 3 },
-        { "name": "Barbell Curl", "repeats": 3 },
-        { "name": "Close-grip Bench Press", "repeats": 3 }
+        {
+          "name": "Overhead Press",
+          "repeats": 4,
+          "description": "Brace hard and keep the bar path close to the face."
+        },
+        {
+          "name": "Lateral Raise",
+          "repeats": 3,
+          "description": "Lead with elbows and stop around shoulder height."
+        },
+        {
+          "name": "Face Pull",
+          "repeats": 3,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        },
+        {
+          "name": "Barbell Curl",
+          "repeats": 3,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        },
+        {
+          "name": "Close-grip Bench Press",
+          "repeats": 3,
+          "description": "Tuck elbows slightly and lower with steady control."
+        }
       ]
     },
     {
-      "name": "Leg & Core Superset",
+      "name": "Legs & Core Superset",
       "cycles": [
-        { "name": "Goblet Squat", "repeats": 4 },
-        { "name": "Plank", "repeats": 4, "description": "Hold 45 s" },
-        { "name": "Romanian Deadlift", "repeats": 3 },
-        { "name": "Hanging Leg Raise", "repeats": 3 },
-        { "name": "Walking Lunge", "repeats": 3 }
+        {
+          "name": "Goblet Squat",
+          "repeats": 4,
+          "description": "Keep the weight close and sit deep with an upright torso."
+        },
+        {
+          "name": "Plank",
+          "repeats": 4,
+          "description": "Squeeze glutes, brace abs, and hold a straight line."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 3,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        },
+        {
+          "name": "Hanging Leg Raise",
+          "repeats": 3,
+          "description": "Posteriorly tilt the pelvis and avoid swinging."
+        },
+        {
+          "name": "Walking Lunge",
+          "repeats": 3,
+          "description": "Take long steps and lower under control each rep."
+        }
       ]
     },
     {
       "name": "PPL — Push",
       "cycles": [
-        { "name": "Bench Press", "repeats": 4 },
-        { "name": "Overhead Press", "repeats": 3 },
-        { "name": "Incline Fly", "repeats": 3 },
-        { "name": "Lateral Raise", "repeats": 3 },
-        { "name": "Tricep Pushdown", "repeats": 3 },
-        { "name": "Overhead Extension", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Overhead Press",
+          "repeats": 3,
+          "description": "Brace hard and keep the bar path close to the face."
+        },
+        {
+          "name": "Incline Dumbbell Fly",
+          "repeats": 3,
+          "description": "Open under control and stop before shoulders roll forward."
+        },
+        {
+          "name": "Lateral Raise",
+          "repeats": 3,
+          "description": "Lead with elbows and stop around shoulder height."
+        },
+        {
+          "name": "Triceps Pushdown",
+          "repeats": 3,
+          "description": "Pin elbows to your sides and lock out with control."
+        },
+        {
+          "name": "Overhead Triceps Extension",
+          "repeats": 3,
+          "description": "Keep elbows pointed up and stretch fully overhead."
+        }
       ]
     },
     {
       "name": "PPL — Pull",
       "cycles": [
-        { "name": "Deadlift", "repeats": 4 },
-        { "name": "Pull-up", "repeats": 4 },
-        { "name": "Cable Row", "repeats": 3 },
-        { "name": "Face Pull", "repeats": 3 },
-        { "name": "Barbell Curl", "repeats": 3 },
-        { "name": "Hammer Curl", "repeats": 3 }
+        {
+          "name": "Conventional Deadlift",
+          "repeats": 4,
+          "description": "Brace before the pull and push the floor away."
+        },
+        {
+          "name": "Pull-up",
+          "repeats": 4,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Cable Row",
+          "repeats": 3,
+          "description": "Initiate with the shoulder blades and pull toward the lower ribs."
+        },
+        {
+          "name": "Face Pull",
+          "repeats": 3,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        },
+        {
+          "name": "Barbell Curl",
+          "repeats": 3,
+          "description": "Keep elbows pinned to your sides and avoid swinging."
+        },
+        {
+          "name": "Hammer Curl",
+          "repeats": 3,
+          "description": "Use a neutral grip, keep elbows still, and squeeze through the forearms."
+        }
       ]
     },
     {
       "name": "PPL — Legs",
       "cycles": [
-        { "name": "Squat", "repeats": 4 },
-        { "name": "Leg Press", "repeats": 4 },
-        { "name": "Romanian Deadlift", "repeats": 3 },
-        { "name": "Leg Curl", "repeats": 3 },
-        { "name": "Leg Extension", "repeats": 3 },
-        { "name": "Calf Raise", "repeats": 4 }
+        {
+          "name": "Barbell Squat",
+          "repeats": 4,
+          "description": "Brace hard, keep chest tall, and drive knees over toes."
+        },
+        {
+          "name": "Leg Press",
+          "repeats": 4,
+          "description": "Use a shoulder-width stance, lower deep, and drive evenly through the platform."
+        },
+        {
+          "name": "Romanian Deadlift",
+          "repeats": 3,
+          "description": "Push hips back and keep lats tight over mid-foot."
+        },
+        {
+          "name": "Leg Curl",
+          "repeats": 3,
+          "description": "Keep hips down and squeeze hamstrings through the full curl."
+        },
+        {
+          "name": "Leg Extension",
+          "repeats": 3,
+          "description": "Control the lowering and pause with quads contracted."
+        },
+        {
+          "name": "Calf Raise",
+          "repeats": 4,
+          "description": "Use full range and pause briefly at the top of each rep."
+        }
       ]
     },
     {
       "name": "Bodyweight Strength",
       "cycles": [
-        { "name": "Push-up", "repeats": 4, "description": "Hands shoulder-width, full ROM" },
-        { "name": "Pull-up", "repeats": 4 },
-        { "name": "Pistol Squat", "repeats": 3 },
-        { "name": "Dip", "repeats": 3 },
-        { "name": "Hanging Leg Raise", "repeats": 3 },
-        { "name": "Nordic Curl", "repeats": 3 }
+        {
+          "name": "Push-up",
+          "repeats": 4,
+          "description": "Keep body rigid and reach full chest depth each rep."
+        },
+        {
+          "name": "Pull-up",
+          "repeats": 4,
+          "description": "Start from a dead hang and pull chest toward the bar."
+        },
+        {
+          "name": "Pistol Squat",
+          "repeats": 3,
+          "description": "Sit back, keep heel down, and use control throughout."
+        },
+        {
+          "name": "Dip",
+          "repeats": 3,
+          "description": "Stay more upright to bias triceps and lock out strongly."
+        },
+        {
+          "name": "Hanging Leg Raise",
+          "repeats": 3,
+          "description": "Posteriorly tilt the pelvis and avoid swinging."
+        },
+        {
+          "name": "Nordic Curl",
+          "repeats": 3,
+          "description": "Lower slowly and keep hips extended the whole rep."
+        }
       ]
     },
     {
       "name": "Functional Strength",
       "cycles": [
-        { "name": "Trap-bar Deadlift", "repeats": 4 },
-        { "name": "Farmer's Carry", "repeats": 4, "description": "Walk 20–30 m each set" },
-        { "name": "Turkish Get-up", "repeats": 3 },
-        { "name": "Suitcase Carry", "repeats": 3 },
-        { "name": "Goblet Squat", "repeats": 3 }
+        {
+          "name": "Trap-bar Deadlift",
+          "repeats": 4,
+          "description": "Push evenly through the floor and stand tall."
+        },
+        {
+          "name": "Farmer's Carry",
+          "repeats": 4,
+          "description": "Walk tall with short steps and a tight brace."
+        },
+        {
+          "name": "Turkish Get-up",
+          "repeats": 3,
+          "description": "Move step by step and keep eyes on the bell."
+        },
+        {
+          "name": "Suitcase Carry",
+          "repeats": 3,
+          "description": "Stay tall and resist leaning toward the weight."
+        },
+        {
+          "name": "Goblet Squat",
+          "repeats": 3,
+          "description": "Keep the weight close and sit deep with an upright torso."
+        }
       ]
     },
     {
       "name": "Olympic Lifting Primer",
       "cycles": [
-        { "name": "Hang Power Clean", "repeats": 4, "description": "Fast elbows, catch in quarter squat" },
-        { "name": "Push Press", "repeats": 4 },
-        { "name": "Front Squat", "repeats": 4 },
-        { "name": "Snatch Pull", "repeats": 3 }
+        {
+          "name": "Hang Power Clean",
+          "repeats": 4,
+          "description": "Jump explosively and whip elbows through fast."
+        },
+        {
+          "name": "Push Press",
+          "repeats": 4,
+          "description": "Dip straight down and transfer leg drive into the press."
+        },
+        {
+          "name": "Front Squat",
+          "repeats": 4,
+          "description": "Keep elbows high and sit down between the hips."
+        },
+        {
+          "name": "Snatch Pull",
+          "repeats": 3,
+          "description": "Push through the floor and finish tall with high elbows."
+        }
       ]
     },
     {
       "name": "Beginner Full Body",
       "cycles": [
-        { "name": "Goblet Squat", "repeats": 3 },
-        { "name": "Push-up", "repeats": 3 },
-        { "name": "Dumbbell Row", "repeats": 3 },
-        { "name": "Dumbbell Shoulder Press", "repeats": 3 },
-        { "name": "Plank", "repeats": 3, "description": "Hold 30 s" },
-        { "name": "Hip Bridge", "repeats": 3 }
+        {
+          "name": "Goblet Squat",
+          "repeats": 3,
+          "description": "Keep the weight close and sit deep with an upright torso."
+        },
+        {
+          "name": "Push-up",
+          "repeats": 3,
+          "description": "Keep body rigid and reach full chest depth each rep."
+        },
+        {
+          "name": "Dumbbell Row",
+          "repeats": 3,
+          "description": "Pull elbow toward hip and keep torso stable."
+        },
+        {
+          "name": "Dumbbell Shoulder Press",
+          "repeats": 3,
+          "description": "Keep wrists stacked and avoid arching the low back."
+        },
+        {
+          "name": "Plank",
+          "repeats": 3,
+          "description": "Squeeze glutes, brace abs, and hold a straight line."
+        },
+        {
+          "name": "Glute Bridge",
+          "repeats": 3,
+          "description": "Tuck pelvis slightly and squeeze glutes hard at the top."
+        }
       ]
     },
     {
       "name": "Chest & Back Superset",
       "cycles": [
-        { "name": "Bench Press", "repeats": 4 },
-        { "name": "Barbell Row", "repeats": 4 },
-        { "name": "Incline Dumbbell Press", "repeats": 3 },
-        { "name": "Lat Pulldown", "repeats": 3 },
-        { "name": "Cable Fly", "repeats": 3 },
-        { "name": "Cable Row", "repeats": 3 }
+        {
+          "name": "Barbell Bench Press",
+          "repeats": 4,
+          "description": "Retract shoulders, plant feet, and press in a slight arc."
+        },
+        {
+          "name": "Barbell Row",
+          "repeats": 4,
+          "description": "Hold a strong hinge and pull the bar toward your lower ribs."
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "repeats": 3,
+          "description": "Keep shoulder blades set and press toward the eye line."
+        },
+        {
+          "name": "Lat Pulldown",
+          "repeats": 3,
+          "description": "Drive elbows down toward hips and avoid leaning back."
+        },
+        {
+          "name": "Cable Fly",
+          "repeats": 3,
+          "description": "Maintain a soft elbow bend and bring hands together under control."
+        },
+        {
+          "name": "Cable Row",
+          "repeats": 3,
+          "description": "Initiate with the shoulder blades and pull toward the lower ribs."
+        }
       ]
     },
     {
       "name": "Strongman Essentials",
       "cycles": [
-        { "name": "Log Press", "repeats": 4 },
-        { "name": "Axle Deadlift", "repeats": 4 },
-        { "name": "Yoke Carry", "repeats": 3, "description": "Walk 15–20 m each set" },
-        { "name": "Stone Load", "repeats": 3 },
-        { "name": "Farmer's Walk", "repeats": 3 }
+        {
+          "name": "Log Press",
+          "repeats": 4,
+          "description": "Keep the log close, use leg drive, and punch through overhead."
+        },
+        {
+          "name": "Axle Deadlift",
+          "repeats": 4,
+          "description": "Keep the bar close and squeeze hard from the floor."
+        },
+        {
+          "name": "Yoke Carry",
+          "repeats": 3,
+          "description": "Brace hard, take short steps, and stay tall under the load."
+        },
+        {
+          "name": "Stone Load",
+          "repeats": 3,
+          "description": "Hug the stone high and extend hips to the platform."
+        },
+        {
+          "name": "Farmer's Carry",
+          "repeats": 3,
+          "description": "Walk tall with short steps and a tight brace."
+        }
       ]
     },
     {
       "name": "Posture Correction",
       "cycles": [
-        { "name": "Face Pull", "repeats": 4, "description": "High attachment, external rotation at end" },
-        { "name": "Band Pull-apart", "repeats": 4 },
-        { "name": "Wall Angel", "repeats": 3 },
-        { "name": "Chest Opener Stretch", "repeats": 3 },
-        { "name": "Seated Row", "repeats": 4 },
-        { "name": "Reverse Fly", "repeats": 3 }
+        {
+          "name": "Face Pull",
+          "repeats": 4,
+          "description": "Pull toward the face and rotate thumbs slightly behind you."
+        },
+        {
+          "name": "Band Pull-apart",
+          "repeats": 4,
+          "description": "Keep shoulders down and finish by squeezing the upper back."
+        },
+        {
+          "name": "Wall Angel",
+          "repeats": 3,
+          "description": "Keep ribs down and slide arms without losing contact."
+        },
+        {
+          "name": "Chest Opener Stretch",
+          "repeats": 3,
+          "description": "Open through the chest while keeping ribs and neck relaxed."
+        },
+        {
+          "name": "Seated Cable Row",
+          "repeats": 4,
+          "description": "Sit tall, pull to the midsection, and control the reach."
+        },
+        {
+          "name": "Reverse Fly",
+          "repeats": 3,
+          "description": "Raise wide with light load and squeeze between shoulder blades."
+        }
       ]
     }
   ]
