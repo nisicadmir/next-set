@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/training_template.dart';
 
-// Replace with the actual raw GitHub URL once the file is uploaded.
-// e.g. https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/training-set-v1.json
 const String kTemplateUrl =
     'https://raw.githubusercontent.com/nisicadmir/next-set/refs/heads/main/training-set-v1.json';
 
