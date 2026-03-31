@@ -1,0 +1,535 @@
+{
+  "version": "1",
+  "templates": [
+    {
+      "name": "Legs 1 — Squat Focus",
+      "cycles": [
+        { "name": "Barbell Squat", "repeats": 5, "description": "Keep chest up, knees tracking toes" },
+        { "name": "Romanian Deadlift", "repeats": 4, "description": "Hinge at hips, soft knees" },
+        { "name": "Leg Press", "repeats": 4 },
+        { "name": "Leg Curl", "repeats": 3 },
+        { "name": "Standing Calf Raise", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Legs 2 — Deadlift Focus",
+      "cycles": [
+        { "name": "Conventional Deadlift", "repeats": 5, "description": "Drive floor away, brace core" },
+        { "name": "Bulgarian Split Squat", "repeats": 4, "description": "Rear foot elevated, knee to floor" },
+        { "name": "Leg Extension", "repeats": 3 },
+        { "name": "Seated Leg Curl", "repeats": 3 },
+        { "name": "Seated Calf Raise", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Legs 3 — Quad Pump",
+      "cycles": [
+        { "name": "Hack Squat", "repeats": 4 },
+        { "name": "Leg Press", "repeats": 4, "description": "High foot placement for quads" },
+        { "name": "Leg Extension", "repeats": 4, "description": "Squeeze at top" },
+        { "name": "Walking Lunge", "repeats": 3 },
+        { "name": "Leg Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Legs 4 — Hamstring & Glute",
+      "cycles": [
+        { "name": "Sumo Deadlift", "repeats": 4 },
+        { "name": "Hip Thrust", "repeats": 4, "description": "Drive hips fully up, squeeze glutes" },
+        { "name": "Romanian Deadlift", "repeats": 4 },
+        { "name": "Lying Leg Curl", "repeats": 4 },
+        { "name": "Cable Kickback", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest 1 — Power",
+      "cycles": [
+        { "name": "Barbell Bench Press", "repeats": 5, "description": "Arch back, retract scapula, feet flat" },
+        { "name": "Incline Barbell Press", "repeats": 4 },
+        { "name": "Weighted Dip", "repeats": 4, "description": "Lean forward slightly for chest emphasis" },
+        { "name": "Cable Fly", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest 2 — Hypertrophy",
+      "cycles": [
+        { "name": "Incline Dumbbell Press", "repeats": 4 },
+        { "name": "Flat Dumbbell Press", "repeats": 4 },
+        { "name": "Cable Fly (Low to High)", "repeats": 3, "description": "Feel the stretch at bottom" },
+        { "name": "Decline Push-up", "repeats": 3 },
+        { "name": "Machine Chest Press", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest 3 — Upper Chest",
+      "cycles": [
+        { "name": "Incline Barbell Press", "repeats": 5 },
+        { "name": "Incline Dumbbell Fly", "repeats": 4 },
+        { "name": "Low Cable Fly", "repeats": 4, "description": "Pull cables upward, hands meet at chin level" },
+        { "name": "Incline Machine Press", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest 4 — Cable Finisher",
+      "cycles": [
+        { "name": "Flat Barbell Bench Press", "repeats": 4 },
+        { "name": "High Cable Fly", "repeats": 4, "description": "Arms wide, cross hands at bottom" },
+        { "name": "Mid Cable Fly", "repeats": 3 },
+        { "name": "Low Cable Fly", "repeats": 3 },
+        { "name": "Cable Press-out", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Back 1 — Width",
+      "cycles": [
+        { "name": "Pull-up", "repeats": 4, "description": "Full hang, chin clears bar" },
+        { "name": "Lat Pulldown", "repeats": 4 },
+        { "name": "Wide-grip Cable Row", "repeats": 3 },
+        { "name": "Straight-arm Pulldown", "repeats": 3, "description": "Keep arms straight throughout" }
+      ]
+    },
+    {
+      "name": "Back 2 — Thickness",
+      "cycles": [
+        { "name": "Barbell Row", "repeats": 4, "description": "Pull to lower chest, keep back flat" },
+        { "name": "T-Bar Row", "repeats": 4 },
+        { "name": "Seated Cable Row", "repeats": 4 },
+        { "name": "Single-arm Dumbbell Row", "repeats": 3 },
+        { "name": "Face Pull", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Back 3 — Pull Day",
+      "cycles": [
+        { "name": "Weighted Pull-up", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Lat Pulldown", "repeats": 3 },
+        { "name": "Cable Row", "repeats": 3 },
+        { "name": "Dumbbell Shrug", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Shoulders 1 — Press Heavy",
+      "cycles": [
+        { "name": "Overhead Barbell Press", "repeats": 5, "description": "Bar path straight up, core tight" },
+        { "name": "Arnold Press", "repeats": 4 },
+        { "name": "Lateral Raise", "repeats": 4 },
+        { "name": "Front Raise", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Shoulders 2 — Lateral Focus",
+      "cycles": [
+        { "name": "Seated Dumbbell Press", "repeats": 4 },
+        { "name": "Cable Lateral Raise", "repeats": 4, "description": "Cable gives constant tension" },
+        { "name": "Dumbbell Lateral Raise", "repeats": 4 },
+        { "name": "Upright Row", "repeats": 3 },
+        { "name": "Rear Delt Fly", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Shoulders 3 — Rear Delt",
+      "cycles": [
+        { "name": "Face Pull", "repeats": 4, "description": "Pull to face, elbows high" },
+        { "name": "Reverse Pec Deck", "repeats": 4 },
+        { "name": "Bent-over Dumbbell Fly", "repeats": 4 },
+        { "name": "Band Pull-apart", "repeats": 3 },
+        { "name": "Overhead Press", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Biceps 1 — Strength",
+      "cycles": [
+        { "name": "Barbell Curl", "repeats": 4, "description": "Elbows stay at sides" },
+        { "name": "Incline Dumbbell Curl", "repeats": 3, "description": "Full stretch at bottom" },
+        { "name": "Hammer Curl", "repeats": 3 },
+        { "name": "Cable Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Biceps 2 — Peak Pump",
+      "cycles": [
+        { "name": "EZ-bar Curl", "repeats": 4 },
+        { "name": "Concentration Curl", "repeats": 3, "description": "Supinate at top for peak contraction" },
+        { "name": "Spider Curl", "repeats": 3 },
+        { "name": "Cable Curl (High)", "repeats": 3 },
+        { "name": "Reverse Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Triceps 1 — Strength",
+      "cycles": [
+        { "name": "Close-grip Bench Press", "repeats": 4, "description": "Elbows in, lower to sternum" },
+        { "name": "Skull Crusher", "repeats": 4 },
+        { "name": "Tricep Pushdown", "repeats": 3 },
+        { "name": "Overhead Tricep Extension", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Triceps 2 — Pump",
+      "cycles": [
+        { "name": "Dip", "repeats": 4, "description": "Upright torso for tricep emphasis" },
+        { "name": "Cable Pushdown", "repeats": 4 },
+        { "name": "Cable Overhead Extension", "repeats": 3 },
+        { "name": "Kickback", "repeats": 3 },
+        { "name": "Diamond Push-up", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Arms — Combined",
+      "cycles": [
+        { "name": "Barbell Curl", "repeats": 3 },
+        { "name": "Close-grip Bench Press", "repeats": 3 },
+        { "name": "Hammer Curl", "repeats": 3 },
+        { "name": "Tricep Pushdown", "repeats": 3 },
+        { "name": "Cable Curl", "repeats": 3 },
+        { "name": "Overhead Extension", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Core 1 — Strength",
+      "cycles": [
+        { "name": "Weighted Plank", "repeats": 4, "description": "Plate on back, hold 30–60 s" },
+        { "name": "Cable Crunch", "repeats": 4 },
+        { "name": "Hanging Leg Raise", "repeats": 4 },
+        { "name": "Ab Wheel Rollout", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Core 2 — Endurance",
+      "cycles": [
+        { "name": "Plank", "repeats": 3, "description": "3 × 60 s" },
+        { "name": "Side Plank", "repeats": 3 },
+        { "name": "Bicycle Crunch", "repeats": 4 },
+        { "name": "Mountain Climber", "repeats": 3 },
+        { "name": "Russian Twist", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Push 1",
+      "cycles": [
+        { "name": "Barbell Bench Press", "repeats": 4 },
+        { "name": "Overhead Press", "repeats": 4 },
+        { "name": "Incline Dumbbell Press", "repeats": 3 },
+        { "name": "Lateral Raise", "repeats": 3 },
+        { "name": "Tricep Pushdown", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Push 2",
+      "cycles": [
+        { "name": "Incline Barbell Press", "repeats": 4 },
+        { "name": "Seated Dumbbell Press", "repeats": 4 },
+        { "name": "Cable Fly", "repeats": 3 },
+        { "name": "Cable Lateral Raise", "repeats": 3 },
+        { "name": "Skull Crusher", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Pull 1",
+      "cycles": [
+        { "name": "Weighted Pull-up", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Face Pull", "repeats": 3 },
+        { "name": "Cable Curl", "repeats": 3 },
+        { "name": "Hammer Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Pull 2",
+      "cycles": [
+        { "name": "Lat Pulldown", "repeats": 4 },
+        { "name": "Seated Cable Row", "repeats": 4 },
+        { "name": "Reverse Pec Deck", "repeats": 3 },
+        { "name": "EZ-bar Curl", "repeats": 3 },
+        { "name": "Incline Dumbbell Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Full Body 1",
+      "cycles": [
+        { "name": "Barbell Squat", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Bench Press", "repeats": 4 },
+        { "name": "Overhead Press", "repeats": 3 },
+        { "name": "Romanian Deadlift", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Full Body 2",
+      "cycles": [
+        { "name": "Deadlift", "repeats": 4 },
+        { "name": "Pull-up", "repeats": 4 },
+        { "name": "Dumbbell Bench Press", "repeats": 4 },
+        { "name": "Lunge", "repeats": 3 },
+        { "name": "Dumbbell Shoulder Press", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Full Body 3",
+      "cycles": [
+        { "name": "Front Squat", "repeats": 4 },
+        { "name": "T-Bar Row", "repeats": 4 },
+        { "name": "Incline Press", "repeats": 3 },
+        { "name": "Arnold Press", "repeats": 3 },
+        { "name": "Leg Curl", "repeats": 3 },
+        { "name": "Barbell Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Upper Body 1",
+      "cycles": [
+        { "name": "Bench Press", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Overhead Press", "repeats": 3 },
+        { "name": "Pull-up", "repeats": 3 },
+        { "name": "Dumbbell Curl", "repeats": 3 },
+        { "name": "Tricep Pushdown", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Upper Body 2",
+      "cycles": [
+        { "name": "Incline Dumbbell Press", "repeats": 4 },
+        { "name": "Lat Pulldown", "repeats": 4 },
+        { "name": "Cable Fly", "repeats": 3 },
+        { "name": "Cable Row", "repeats": 3 },
+        { "name": "Lateral Raise", "repeats": 3 },
+        { "name": "EZ-bar Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Lower Body 1",
+      "cycles": [
+        { "name": "Barbell Squat", "repeats": 5 },
+        { "name": "Romanian Deadlift", "repeats": 4 },
+        { "name": "Leg Press", "repeats": 4 },
+        { "name": "Leg Curl", "repeats": 3 },
+        { "name": "Calf Raise", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Lower Body 2",
+      "cycles": [
+        { "name": "Conventional Deadlift", "repeats": 4 },
+        { "name": "Hip Thrust", "repeats": 4 },
+        { "name": "Walking Lunge", "repeats": 3 },
+        { "name": "Leg Extension", "repeats": 3 },
+        { "name": "Seated Calf Raise", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Glutes 1 — Strength",
+      "cycles": [
+        { "name": "Hip Thrust", "repeats": 5, "description": "Shoulders on bench, drive through heels" },
+        { "name": "Sumo Deadlift", "repeats": 4 },
+        { "name": "Bulgarian Split Squat", "repeats": 4 },
+        { "name": "Cable Kickback", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Glutes 2 — Isolation",
+      "cycles": [
+        { "name": "Glute Bridge", "repeats": 4, "description": "Pause and squeeze at top" },
+        { "name": "Cable Kickback", "repeats": 4 },
+        { "name": "Abductor Machine", "repeats": 3 },
+        { "name": "Donkey Kick", "repeats": 3 },
+        { "name": "Clamshell", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Calves 1",
+      "cycles": [
+        { "name": "Standing Calf Raise", "repeats": 5, "description": "Full range, pause at stretch" },
+        { "name": "Seated Calf Raise", "repeats": 4 },
+        { "name": "Leg Press Calf Raise", "repeats": 4 },
+        { "name": "Single-leg Calf Raise", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Conditioning 1 — Strength Cardio",
+      "cycles": [
+        { "name": "Kettlebell Swing", "repeats": 5, "description": "Hip hinge power, not squat" },
+        { "name": "Box Jump", "repeats": 4 },
+        { "name": "Battle Rope Wave", "repeats": 3 },
+        { "name": "Sled Push", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Conditioning 2 — HIIT",
+      "cycles": [
+        { "name": "Burpee", "repeats": 4 },
+        { "name": "Jump Squat", "repeats": 4 },
+        { "name": "Mountain Climber", "repeats": 4 },
+        { "name": "High Knees", "repeats": 3 },
+        { "name": "Push-up", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Mobility 1 — Hip & Thoracic",
+      "cycles": [
+        { "name": "Hip 90/90 Stretch", "repeats": 3, "description": "Hold 60 s each side" },
+        { "name": "World's Greatest Stretch", "repeats": 3 },
+        { "name": "Thoracic Rotation", "repeats": 3 },
+        { "name": "Pigeon Pose", "repeats": 3 },
+        { "name": "Cat-Cow", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Mobility 2 — Shoulder & Spine",
+      "cycles": [
+        { "name": "Band Shoulder Dislocate", "repeats": 3, "description": "Wide grip, slow controlled arc" },
+        { "name": "Wall Slide", "repeats": 3 },
+        { "name": "Doorway Chest Stretch", "repeats": 3 },
+        { "name": "Child's Pose", "repeats": 3 },
+        { "name": "Sphinx Pose", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest & Triceps",
+      "cycles": [
+        { "name": "Flat Barbell Bench Press", "repeats": 4 },
+        { "name": "Incline Dumbbell Press", "repeats": 3 },
+        { "name": "Cable Fly", "repeats": 3 },
+        { "name": "Skull Crusher", "repeats": 3 },
+        { "name": "Tricep Pushdown", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Back & Biceps",
+      "cycles": [
+        { "name": "Pull-up", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Lat Pulldown", "repeats": 3 },
+        { "name": "Barbell Curl", "repeats": 3 },
+        { "name": "Hammer Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Shoulders & Arms",
+      "cycles": [
+        { "name": "Overhead Press", "repeats": 4 },
+        { "name": "Lateral Raise", "repeats": 3 },
+        { "name": "Face Pull", "repeats": 3 },
+        { "name": "Barbell Curl", "repeats": 3 },
+        { "name": "Close-grip Bench Press", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Leg & Core Superset",
+      "cycles": [
+        { "name": "Goblet Squat", "repeats": 4 },
+        { "name": "Plank", "repeats": 4, "description": "Hold 45 s" },
+        { "name": "Romanian Deadlift", "repeats": 3 },
+        { "name": "Hanging Leg Raise", "repeats": 3 },
+        { "name": "Walking Lunge", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "PPL — Push",
+      "cycles": [
+        { "name": "Bench Press", "repeats": 4 },
+        { "name": "Overhead Press", "repeats": 3 },
+        { "name": "Incline Fly", "repeats": 3 },
+        { "name": "Lateral Raise", "repeats": 3 },
+        { "name": "Tricep Pushdown", "repeats": 3 },
+        { "name": "Overhead Extension", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "PPL — Pull",
+      "cycles": [
+        { "name": "Deadlift", "repeats": 4 },
+        { "name": "Pull-up", "repeats": 4 },
+        { "name": "Cable Row", "repeats": 3 },
+        { "name": "Face Pull", "repeats": 3 },
+        { "name": "Barbell Curl", "repeats": 3 },
+        { "name": "Hammer Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "PPL — Legs",
+      "cycles": [
+        { "name": "Squat", "repeats": 4 },
+        { "name": "Leg Press", "repeats": 4 },
+        { "name": "Romanian Deadlift", "repeats": 3 },
+        { "name": "Leg Curl", "repeats": 3 },
+        { "name": "Leg Extension", "repeats": 3 },
+        { "name": "Calf Raise", "repeats": 4 }
+      ]
+    },
+    {
+      "name": "Bodyweight Strength",
+      "cycles": [
+        { "name": "Push-up", "repeats": 4, "description": "Hands shoulder-width, full ROM" },
+        { "name": "Pull-up", "repeats": 4 },
+        { "name": "Pistol Squat", "repeats": 3 },
+        { "name": "Dip", "repeats": 3 },
+        { "name": "Hanging Leg Raise", "repeats": 3 },
+        { "name": "Nordic Curl", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Functional Strength",
+      "cycles": [
+        { "name": "Trap-bar Deadlift", "repeats": 4 },
+        { "name": "Farmer's Carry", "repeats": 4, "description": "Walk 20–30 m each set" },
+        { "name": "Turkish Get-up", "repeats": 3 },
+        { "name": "Suitcase Carry", "repeats": 3 },
+        { "name": "Goblet Squat", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Olympic Lifting Primer",
+      "cycles": [
+        { "name": "Hang Power Clean", "repeats": 4, "description": "Fast elbows, catch in quarter squat" },
+        { "name": "Push Press", "repeats": 4 },
+        { "name": "Front Squat", "repeats": 4 },
+        { "name": "Snatch Pull", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Beginner Full Body",
+      "cycles": [
+        { "name": "Goblet Squat", "repeats": 3 },
+        { "name": "Push-up", "repeats": 3 },
+        { "name": "Dumbbell Row", "repeats": 3 },
+        { "name": "Dumbbell Shoulder Press", "repeats": 3 },
+        { "name": "Plank", "repeats": 3, "description": "Hold 30 s" },
+        { "name": "Hip Bridge", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Chest & Back Superset",
+      "cycles": [
+        { "name": "Bench Press", "repeats": 4 },
+        { "name": "Barbell Row", "repeats": 4 },
+        { "name": "Incline Dumbbell Press", "repeats": 3 },
+        { "name": "Lat Pulldown", "repeats": 3 },
+        { "name": "Cable Fly", "repeats": 3 },
+        { "name": "Cable Row", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Strongman Essentials",
+      "cycles": [
+        { "name": "Log Press", "repeats": 4 },
+        { "name": "Axle Deadlift", "repeats": 4 },
+        { "name": "Yoke Carry", "repeats": 3, "description": "Walk 15–20 m each set" },
+        { "name": "Stone Load", "repeats": 3 },
+        { "name": "Farmer's Walk", "repeats": 3 }
+      ]
+    },
+    {
+      "name": "Posture Correction",
+      "cycles": [
+        { "name": "Face Pull", "repeats": 4, "description": "High attachment, external rotation at end" },
+        { "name": "Band Pull-apart", "repeats": 4 },
+        { "name": "Wall Angel", "repeats": 3 },
+        { "name": "Chest Opener Stretch", "repeats": 3 },
+        { "name": "Seated Row", "repeats": 4 },
+        { "name": "Reverse Fly", "repeats": 3 }
+      ]
+    }
+  ]
+}
