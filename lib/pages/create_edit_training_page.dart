@@ -337,44 +337,86 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
   }
 
   Widget _buildTemplatePicker() {
-    return Row(
-      children: [
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed:
-                _templatesLoading || _templates.isEmpty
-                    ? null
-                    : _showTemplatePicker,
-            icon:
-                _templatesLoading
-                    ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                    : const Icon(Icons.library_books_outlined),
-            label: Text(
-              _templatesLoading
-                  ? 'Loading templates…'
-                  : _templatesFailed
-                  ? 'Templates unavailable'
-                  : 'Load from template',
-            ),
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              alignment: Alignment.centerLeft,
-            ),
-          ),
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: colorScheme.outlineVariant,
         ),
-        if (_templatesFailed) ...[
-          const SizedBox(width: 8),
-          IconButton(
-            tooltip: 'Retry',
-            icon: const Icon(Icons.refresh),
-            onPressed: _loadTemplates,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          Icon(
+            Icons.library_books_outlined,
+            size: 22,
+            color: _templatesLoading || _templatesFailed
+                ? colorScheme.onSurface.withValues(alpha: 0.4)
+                : colorScheme.primary,
           ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Start from a template',
+                  style: textTheme.labelLarge?.copyWith(
+                    color: _templatesLoading || _templatesFailed
+                        ? colorScheme.onSurface.withValues(alpha: 0.4)
+                        : colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  _templatesLoading
+                      ? 'Loading templates…'
+                      : _templatesFailed
+                          ? 'Could not load templates'
+                          : '${_templates.length} templates available',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.55),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          if (_templatesLoading)
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: colorScheme.primary.withValues(alpha: 0.6),
+              ),
+            )
+          else if (_templatesFailed)
+            IconButton(
+              tooltip: 'Retry',
+              icon: Icon(Icons.refresh, color: colorScheme.primary),
+              visualDensity: VisualDensity.compact,
+              onPressed: _loadTemplates,
+            )
+          else
+            FilledButton.tonal(
+              onPressed: _templates.isEmpty ? null : _showTemplatePicker,
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                visualDensity: VisualDensity.compact,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text('Browse'),
+            ),
         ],
-      ],
+      ),
     );
   }
 
@@ -512,6 +554,9 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
   @override
   Widget build(BuildContext context) {
     final filtered = _filtered;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: 0.7,
@@ -519,81 +564,148 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
       maxChildSize: 0.95,
       builder: (_, scrollController) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 12),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 12),
+            // Drag handle
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                'Choose a template',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.only(top: 12, bottom: 4),
+              child: Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: colorScheme.onSurface.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+
+            // Title row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(20, 12, 12, 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Choose a template',
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                ],
+              ),
+            ),
+
+            // Search field
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: TextField(
                 controller: _searchController,
-                autofocus: false,
                 decoration: InputDecoration(
                   hintText: 'Search templates…',
-                  prefixIcon: const Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search, size: 20),
+                  filled: true,
+                  fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   isDense: true,
-                  suffixIcon:
-                      _query.isNotEmpty
-                          ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _searchController.clear();
-                              setState(() => _query = '');
-                            },
-                          )
-                          : null,
+                  suffixIcon: _query.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear, size: 18),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() => _query = '');
+                          },
+                        )
+                      : null,
                 ),
                 onChanged: (v) => setState(() => _query = v),
               ),
             ),
-            const SizedBox(height: 8),
+
             const Divider(height: 1),
+
+            // List
             Expanded(
-              child:
-                  filtered.isEmpty
-                      ? Center(
-                        child: Text(
-                          'No templates match "$_query"',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      )
-                      : ListView.builder(
-                        controller: scrollController,
-                        itemCount: filtered.length,
-                        itemBuilder: (_, i) {
-                          final t = filtered[i];
-                          return ListTile(
-                            title: Text(t.name),
-                            subtitle: Text(
-                              '${t.cycles.length} cycle${t.cycles.length == 1 ? '' : 's'}',
+              child: filtered.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.search_off_rounded,
+                            size: 40,
+                            color: colorScheme.onSurface.withValues(alpha: 0.3),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'No templates match "$_query"',
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.onSurface.withValues(alpha: 0.5),
                             ),
-                            trailing: const Icon(Icons.chevron_right),
-                            onTap: () => widget.onSelected(t),
-                          );
-                        },
+                          ),
+                        ],
                       ),
+                    )
+                  : ListView.separated(
+                      controller: scrollController,
+                      padding: EdgeInsets.only(
+                        top: 8,
+                        bottom: 8 + MediaQuery.of(context).padding.bottom,
+                      ),
+                      itemCount: filtered.length,
+                      separatorBuilder: (context2, i2) => const Divider(
+                        height: 1,
+                        indent: 16,
+                        endIndent: 16,
+                      ),
+                      itemBuilder: (_, i) {
+                        final t = filtered[i];
+                        final cycleCount = t.cycles.length;
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 4,
+                          ),
+                          title: Text(
+                            t.name,
+                            style: textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '$cycleCount ${cycleCount == 1 ? 'exercise' : 'exercises'}',
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurface.withValues(alpha: 0.55),
+                            ),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                            color: colorScheme.onSurface.withValues(alpha: 0.4),
+                          ),
+                          onTap: () => widget.onSelected(t),
+                        );
+                      },
+                    ),
             ),
           ],
         );
