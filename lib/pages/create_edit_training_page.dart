@@ -563,7 +563,9 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
       minChildSize: 0.4,
       maxChildSize: 0.95,
       builder: (_, scrollController) {
-        return Column(
+        return SafeArea(
+          top: false,
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Drag handle
@@ -667,10 +669,7 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
                     )
                   : ListView.separated(
                       controller: scrollController,
-                      padding: EdgeInsets.only(
-                        top: 8,
-                        bottom: 8 + MediaQuery.of(context).padding.bottom,
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       itemCount: filtered.length,
                       separatorBuilder: (context2, i2) => const Divider(
                         height: 1,
@@ -708,6 +707,7 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
                     ),
             ),
           ],
+        ),
         );
       },
     );
