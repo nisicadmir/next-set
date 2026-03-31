@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/training.dart';
 import '../models/training_cycle.dart';
+import '../models/training_template.dart';
+import '../services/template_service.dart';
 import '../services/training_storage_service.dart';
 
 class CreateEditTrainingPage extends StatefulWidget {
@@ -17,13 +19,18 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final TrainingStorageService _storageService = TrainingStorageService();
+  final TemplateService _templateService = TemplateService();
 
-  // Each cycle has a name controller, description controller, and a repeats value
   final List<TextEditingController> _cycleNameControllers = [];
   final List<TextEditingController> _cycleDescriptionControllers = [];
   final List<int> _cycleRepeats = [];
 
   bool _isSaving = false;
+
+  // Template picker state (create mode only)
+  List<TrainingTemplate> _templates = [];
+  bool _templatesLoading = false;
+  bool _templatesFailed = false;
 
   bool get _isEditing => widget.existingTraining != null;
 
@@ -41,8 +48,8 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
         _cycleRepeats.add(cycle.repeats);
       }
     } else {
-      // Start with one empty cycle
       _addCycle();
+      _loadTemplates();
     }
   }
 
@@ -56,6 +63,69 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
       c.dispose();
     }
     super.dispose();
+  }
+
+  Future<void> _loadTemplates() async {
+    setState(() {
+      _templatesLoading = true;
+      _templatesFailed = false;
+    });
+    try {
+      final templates = await _templateService.fetchTemplates();
+      if (!mounted) return;
+      setState(() {
+        _templates = templates;
+        _templatesLoading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _templatesLoading = false;
+        _templatesFailed = true;
+      });
+    }
+  }
+
+  void _applyTemplate(TrainingTemplate template) {
+    // Dispose existing controllers
+    for (final c in _cycleNameControllers) {
+      c.dispose();
+    }
+    for (final c in _cycleDescriptionControllers) {
+      c.dispose();
+    }
+
+    setState(() {
+      _nameController.text = template.name;
+      _cycleNameControllers.clear();
+      _cycleDescriptionControllers.clear();
+      _cycleRepeats.clear();
+
+      for (final cycle in template.cycles) {
+        _cycleNameControllers.add(TextEditingController(text: cycle.name));
+        _cycleDescriptionControllers.add(
+          TextEditingController(text: cycle.description ?? ''),
+        );
+        _cycleRepeats.add(cycle.repeats);
+      }
+    });
+  }
+
+  void _showTemplatePicker() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) => _TemplatePickerSheet(
+        templates: _templates,
+        onSelected: (template) {
+          Navigator.of(ctx).pop();
+          _applyTemplate(template);
+        },
+      ),
+    );
   }
 
   void _addCycle() {
@@ -165,6 +235,10 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              // Template picker (create mode only)
+              if (!_isEditing) _buildTemplatePicker(),
+              if (!_isEditing) const SizedBox(height: 20),
+
               // Training name
               TextFormField(
                 controller: _nameController,
@@ -215,7 +289,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
 
               const SizedBox(height: 8),
 
-              // Add Cycle button below cycles
+              // Add Cycle button
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
@@ -259,6 +333,48 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTemplatePicker() {
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed:
+                _templatesLoading || _templates.isEmpty
+                    ? null
+                    : _showTemplatePicker,
+            icon:
+                _templatesLoading
+                    ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                    : const Icon(Icons.library_books_outlined),
+            label: Text(
+              _templatesLoading
+                  ? 'Loading templates…'
+                  : _templatesFailed
+                  ? 'Templates unavailable'
+                  : 'Load from template',
+            ),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ),
+        if (_templatesFailed) ...[
+          const SizedBox(width: 8),
+          IconButton(
+            tooltip: 'Retry',
+            icon: const Icon(Icons.refresh),
+            onPressed: _loadTemplates,
+          ),
+        ],
+      ],
     );
   }
 
@@ -358,6 +474,130 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _TemplatePickerSheet extends StatefulWidget {
+  final List<TrainingTemplate> templates;
+  final void Function(TrainingTemplate) onSelected;
+
+  const _TemplatePickerSheet({
+    required this.templates,
+    required this.onSelected,
+  });
+
+  @override
+  State<_TemplatePickerSheet> createState() => _TemplatePickerSheetState();
+}
+
+class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
+  final _searchController = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<TrainingTemplate> get _filtered {
+    if (_query.isEmpty) return widget.templates;
+    final q = _query.toLowerCase();
+    return widget.templates
+        .where((t) => t.name.toLowerCase().contains(q))
+        .toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _filtered;
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.7,
+      minChildSize: 0.4,
+      maxChildSize: 0.95,
+      builder: (_, scrollController) {
+        return Column(
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Choose a template',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                controller: _searchController,
+                autofocus: false,
+                decoration: InputDecoration(
+                  hintText: 'Search templates…',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  isDense: true,
+                  suffixIcon:
+                      _query.isNotEmpty
+                          ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                          )
+                          : null,
+                ),
+                onChanged: (v) => setState(() => _query = v),
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
+            Expanded(
+              child:
+                  filtered.isEmpty
+                      ? Center(
+                        child: Text(
+                          'No templates match "$_query"',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      )
+                      : ListView.builder(
+                        controller: scrollController,
+                        itemCount: filtered.length,
+                        itemBuilder: (_, i) {
+                          final t = filtered[i];
+                          return ListTile(
+                            title: Text(t.name),
+                            subtitle: Text(
+                              '${t.cycles.length} cycle${t.cycles.length == 1 ? '' : 's'}',
+                            ),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () => widget.onSelected(t),
+                          );
+                        },
+                      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
