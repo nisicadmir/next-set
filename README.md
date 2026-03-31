@@ -8,48 +8,28 @@ Application is called NextSet.
 
 The application be the timer for sets in the gym.
 
-## Model
+## Description
 
-```dart
-name: string
-numberOfSets: int
-secondsPerSet: int
-shouldNotifyEndOfSet: bool
-shouldNotifyEndOfBreak: bool
-createdAt: date
-updatedAt: date
-lastUsedAt?: date
-```
+Short:
+Plan workouts, save routines, and run sets and breaks with audio alerts.
 
-### Home screen
+Long:
+NextSet is a simple but powerful workout companion for structured training. Build your own routines with sets, breaks, and rounds, then let the app guide you through each session so you can stay focused on training.
 
-On home screen there should be a list of recently used sets, which are saved in local storage.
-On home sreen we should show:
+Create custom workout templates for boxing rounds, strength circuits, HIIT, stretching, or any interval-based session. Each routine can include your preferred round duration, rest duration, and total number of rounds. You can also enable optional audio alerts before a set or break ends, so you always know when it is time to push or get ready for the next round.
 
-- Set name
-- Number of sets
-- Time per set in minutes and seconds
+During your workout, NextSet keeps your screen awake, shows a large countdown timer, clearly indicates whether you are in a SET or a BREAK, and tracks your current round from start to finish. You can start, pause, resume, or exit whenever you need.
 
-On home screen there should be also a button which will navigate to page where we will show list of sets. On that page there should also be a button to create new set.
+Your saved routines are always ready to use, and recently used workouts appear first so you can jump back into your favorites with a single tap. Everything is stored locally on your device, making the app fast, private, and available even when you are offline.
 
-### List of sets page
+Key features
 
-When we are on page of list of sets, there should be:
-
-- list of sets with name, number of sets and time per set in minutes and seconds
-- Each set should have delete and edit button
-
-#### Creating new set/updaring set
-
-When creating new round:
-
-- how many rounds I want to have
-- how many seconds/minutes each round should have
-- how many seconds/minutes there is a break between rounds
-- checkbox if there should be a notification to notify 10 seconds before the end of the round
-- checkbox if there should eb a notification to notify 10 seconds before the end of the break
-  There should be an input if there is a need to save the configuration, if set then save it on save button.
-  We should not be able to save a set with same name or with less than 2 characters.
-  There should also be a button to open the set without saving.
-
-When
+Create custom workouts with rounds, set durations, and break durations
+Save and reuse workout templates anytime
+Optional audio alerts before sets and breaks end
+Large, clear workout screen with countdown and round tracking
+Pause, resume, or exit sessions whenever needed
+Recently used routines shown first for faster access
+Light and dark theme support
+Offline-first and privacy-friendly with local storage
+Use NextSet for interval training, boxing, circuits, HIIT, stretching, or any workout built around sets and breaks.
