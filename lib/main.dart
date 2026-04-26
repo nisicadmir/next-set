@@ -149,9 +149,19 @@ class _HomePageState extends State<HomePage>
         if (b.lastUsedAt == null) return -1;
         return b.lastUsedAt!.compareTo(a.lastUsedAt!);
       });
-      if (mounted) setState(() { _sets = sets; _setsLoading = false; });
+      if (mounted) {
+        setState(() {
+          _sets = sets;
+          _setsLoading = false;
+        });
+      }
     } catch (e) {
-      if (mounted) setState(() { _sets = []; _setsLoading = false; });
+      if (mounted) {
+        setState(() {
+          _sets = [];
+          _setsLoading = false;
+        });
+      }
     }
   }
 
@@ -165,9 +175,19 @@ class _HomePageState extends State<HomePage>
         if (b.lastUsedAt == null) return -1;
         return b.lastUsedAt!.compareTo(a.lastUsedAt!);
       });
-      if (mounted) setState(() { _trainings = trainings; _trainingsLoading = false; });
+      if (mounted) {
+        setState(() {
+          _trainings = trainings;
+          _trainingsLoading = false;
+        });
+      }
     } catch (e) {
-      if (mounted) setState(() { _trainings = []; _trainingsLoading = false; });
+      if (mounted) {
+        setState(() {
+          _trainings = [];
+          _trainingsLoading = false;
+        });
+      }
     }
   }
 
@@ -267,11 +287,7 @@ class _HomePageState extends State<HomePage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          _TimerTab(
-            sets: _sets,
-            isLoading: _setsLoading,
-            onReload: _loadSets,
-          ),
+          _TimerTab(sets: _sets, isLoading: _setsLoading, onReload: _loadSets),
           _TrainingTab(
             trainings: _trainings,
             isLoading: _trainingsLoading,
@@ -308,8 +324,9 @@ class _TimerTab extends StatelessWidget {
                 children: [
                   Text(
                     'My Sets',
-                    style: Theme.of(context).textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -341,10 +358,12 @@ class _TimerTab extends StatelessWidget {
                       label: const Text('Create New Set'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ),
@@ -363,10 +382,8 @@ class _SetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int minutes = set.secondsPerSet ~/ 60;
-    final int seconds = set.secondsPerSet % 60;
-    final String timeDisplay =
-        minutes > 0 ? '${minutes}m ${seconds}s' : '${seconds}s';
+    final String timeDisplay = _formatDurationSeconds(set.secondsPerSet);
+    final String breakDisplay = _formatDurationSeconds(set.breakSeconds);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -418,38 +435,26 @@ class _SetCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Row(
+              Wrap(
+                spacing: 24,
+                runSpacing: 12,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.repeat,
-                          size: 20,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '${set.numberOfSets} sets',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
+                  SizedBox(
+                    width: 120,
+                    child: _SetDetail(
+                      icon: Icons.repeat,
+                      label: '${set.numberOfSets} sets',
                     ),
                   ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.timer,
-                          size: 20,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          timeDisplay,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
+                  SizedBox(
+                    width: 120,
+                    child: _SetDetail(icon: Icons.timer, label: timeDisplay),
+                  ),
+                  SizedBox(
+                    width: 120,
+                    child: _SetDetail(
+                      icon: Icons.free_breakfast,
+                      label: '$breakDisplay break',
                     ),
                   ),
                 ],
@@ -487,9 +492,9 @@ class _SetCard extends StatelessWidget {
               await SetStorageService().deleteSet(set.id);
               onReload();
               if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Set deleted')),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Set deleted')));
               }
             },
             style: TextButton.styleFrom(
@@ -501,6 +506,43 @@ class _SetCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _SetDetail extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _SetDetail({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.bodyLarge,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String _formatDurationSeconds(int totalSeconds) {
+  final int minutes = totalSeconds ~/ 60;
+  final int seconds = totalSeconds % 60;
+
+  if (minutes > 0 && seconds > 0) {
+    return '${minutes}m ${seconds}s';
+  }
+  if (minutes > 0) {
+    return '${minutes}m';
+  }
+  return '${seconds}s';
 }
 
 // ─── Training Tab ─────────────────────────────────────────────────────────────
@@ -528,8 +570,9 @@ class _TrainingTab extends StatelessWidget {
                 children: [
                   Text(
                     'My Trainings',
-                    style: Theme.of(context).textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -564,10 +607,12 @@ class _TrainingTab extends StatelessWidget {
                       label: const Text('Create New Training'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ),
