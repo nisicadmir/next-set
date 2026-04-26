@@ -21,16 +21,14 @@ class Training {
     return Training(
       id: json['id'] as String,
       name: json['name'] as String,
-      cycles:
-          (json['cycles'] as List<dynamic>)
-              .map((c) => TrainingCycle.fromJson(c as Map<String, dynamic>))
-              .toList(),
+      cycles: (json['cycles'] as List<dynamic>)
+          .map((c) => TrainingCycle.fromJson(c as Map<String, dynamic>))
+          .toList(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      lastUsedAt:
-          json['lastUsedAt'] != null
-              ? DateTime.parse(json['lastUsedAt'] as String)
-              : null,
+      lastUsedAt: json['lastUsedAt'] != null
+          ? DateTime.parse(json['lastUsedAt'] as String)
+          : null,
     );
   }
 
@@ -63,5 +61,5 @@ class Training {
     );
   }
 
-  int get totalRepeats => cycles.fold(0, (sum, c) => sum + c.repeats);
+  int get totalSets => cycles.fold(0, (sum, c) => sum + c.sets);
 }

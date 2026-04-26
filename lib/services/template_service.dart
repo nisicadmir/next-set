@@ -16,7 +16,25 @@ class TemplateService {
     final Map<String, dynamic> body = jsonDecode(response.body);
     final List<dynamic> raw = body['templates'] as List<dynamic>;
     return raw
-        .map((t) => TrainingTemplate.fromJson(t as Map<String, dynamic>))
+        .map(
+          (t) => TrainingTemplate.fromJson(
+            _normalizeTemplateJson(t as Map<String, dynamic>),
+          ),
+        )
         .toList();
+  }
+
+  Map<String, dynamic> _normalizeTemplateJson(Map<String, dynamic> template) {
+    return {
+      ...template,
+      'cycles': (template['cycles'] as List<dynamic>).map((cycle) {
+        final cycleJson = cycle as Map<String, dynamic>;
+        return {
+          ...cycleJson,
+          'sets': cycleJson['sets'] as int? ?? 1,
+          'repeats': (cycleJson['reps'] as int?) ?? cycleJson['repeats'] as int,
+        };
+      }).toList(),
+    };
   }
 }

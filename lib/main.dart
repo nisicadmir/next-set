@@ -709,7 +709,7 @@ class _TrainingCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '${training.totalRepeats} total reps',
+                          '${training.totalSets} total sets',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],

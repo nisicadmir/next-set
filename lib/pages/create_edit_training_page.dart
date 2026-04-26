@@ -23,6 +23,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
 
   final List<TextEditingController> _cycleNameControllers = [];
   final List<TextEditingController> _cycleDescriptionControllers = [];
+  final List<int> _cycleSets = [];
   final List<int> _cycleRepeats = [];
 
   bool _isSaving = false;
@@ -45,6 +46,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
         _cycleDescriptionControllers.add(
           TextEditingController(text: cycle.description ?? ''),
         );
+        _cycleSets.add(cycle.sets);
         _cycleRepeats.add(cycle.repeats);
       }
     } else {
@@ -99,6 +101,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
       _nameController.text = template.name;
       _cycleNameControllers.clear();
       _cycleDescriptionControllers.clear();
+      _cycleSets.clear();
       _cycleRepeats.clear();
 
       for (final cycle in template.cycles) {
@@ -106,6 +109,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
         _cycleDescriptionControllers.add(
           TextEditingController(text: cycle.description ?? ''),
         );
+        _cycleSets.add(cycle.sets);
         _cycleRepeats.add(cycle.repeats);
       }
     });
@@ -132,6 +136,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
     setState(() {
       _cycleNameControllers.add(TextEditingController());
       _cycleDescriptionControllers.add(TextEditingController());
+      _cycleSets.add(1);
       _cycleRepeats.add(5);
     });
   }
@@ -142,7 +147,20 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
       _cycleNameControllers.removeAt(index);
       _cycleDescriptionControllers[index].dispose();
       _cycleDescriptionControllers.removeAt(index);
+      _cycleSets.removeAt(index);
       _cycleRepeats.removeAt(index);
+    });
+  }
+
+  void _incrementSets(int index) {
+    setState(() {
+      _cycleSets[index] = (_cycleSets[index] + 1).clamp(1, 99);
+    });
+  }
+
+  void _decrementSets(int index) {
+    setState(() {
+      _cycleSets[index] = (_cycleSets[index] - 1).clamp(1, 99);
     });
   }
 
@@ -161,9 +179,9 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     if (_cycleNameControllers.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add at least one cycle')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Add at least one cycle')));
       return;
     }
 
@@ -180,22 +198,22 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
     if (nameTaken) {
       setState(() => _isSaving = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('A training with this name already exists')),
+        const SnackBar(
+          content: Text('A training with this name already exists'),
+        ),
       );
       return;
     }
 
-    final cycles = List.generate(
-      _cycleNameControllers.length,
-      (i) {
-        final desc = _cycleDescriptionControllers[i].text.trim();
-        return TrainingCycle(
-          name: _cycleNameControllers[i].text.trim(),
-          repeats: _cycleRepeats[i],
-          description: desc.isEmpty ? null : desc,
-        );
-      },
-    );
+    final cycles = List.generate(_cycleNameControllers.length, (i) {
+      final desc = _cycleDescriptionControllers[i].text.trim();
+      return TrainingCycle(
+        name: _cycleNameControllers[i].text.trim(),
+        sets: _cycleSets[i],
+        repeats: _cycleRepeats[i],
+        description: desc.isEmpty ? null : desc,
+      );
+    });
 
     final now = DateTime.now();
 
@@ -261,9 +279,9 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
               // Cycles header
               Text(
                 'Cycles',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
 
@@ -311,22 +329,23 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
                   onPressed: _isSaving ? null : _save,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor:
-                        Theme.of(context).colorScheme.primaryContainer,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onPrimaryContainer,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
+                    foregroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onPrimaryContainer,
                   ),
-                  child:
-                      _isSaving
-                          ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                          : Text(
-                            _isEditing ? 'Save Changes' : 'Save Training',
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                  child: _isSaving
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(
+                          _isEditing ? 'Save Changes' : 'Save Training',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                 ),
               ),
             ],
@@ -344,9 +363,7 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.45),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: colorScheme.outlineVariant,
-        ),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
@@ -377,8 +394,8 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
                   _templatesLoading
                       ? 'Loading templates…'
                       : _templatesFailed
-                          ? 'Could not load templates'
-                          : '${_templates.length} templates available',
+                      ? 'Could not load templates'
+                      : '${_templates.length} templates available',
                   style: textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurface.withValues(alpha: 0.55),
                   ),
@@ -407,7 +424,10 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
             FilledButton.tonal(
               onPressed: _templates.isEmpty ? null : _showTemplatePicker,
               style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 visualDensity: VisualDensity.compact,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -486,10 +506,33 @@ class _CreateEditTrainingPageState extends State<CreateEditTrainingPage> {
             const SizedBox(height: 12),
             Row(
               children: [
-                Text(
-                  'Repeats',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                Text('Sets', style: Theme.of(context).textTheme.bodyMedium),
+                const Spacer(),
+                IconButton(
+                  onPressed: () => _decrementSets(index),
+                  icon: const Icon(Icons.remove_circle_outline),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    '${_cycleSets[index]}',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () => _incrementSets(index),
+                  icon: const Icon(Icons.add_circle_outline),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Repeats', style: Theme.of(context).textTheme.bodyMedium),
                 const Spacer(),
                 IconButton(
                   onPressed: () => _decrementRepeats(index),
@@ -566,148 +609,161 @@ class _TemplatePickerSheetState extends State<_TemplatePickerSheet> {
         return SafeArea(
           top: false,
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Drag handle
-            Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 4),
-              child: Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: colorScheme.onSurface.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(2),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Drag handle
+              Padding(
+                padding: const EdgeInsets.only(top: 12, bottom: 4),
+                child: Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: colorScheme.onSurface.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Title row
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 12, 12, 0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Choose a template',
-                      style: textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+              // Title row
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 12, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Choose a template',
+                        style: textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ],
-              ),
-            ),
-
-            // Search field
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search templates…',
-                  prefixIcon: const Icon(Icons.search, size: 20),
-                  filled: true,
-                  fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                  isDense: true,
-                  suffixIcon: _query.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear, size: 18),
-                          onPressed: () {
-                            _searchController.clear();
-                            setState(() => _query = '');
-                          },
-                        )
-                      : null,
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.of(context).pop(),
+                      visualDensity: VisualDensity.compact,
+                    ),
+                  ],
                 ),
-                onChanged: (v) => setState(() => _query = v),
               ),
-            ),
 
-            const Divider(height: 1),
-
-            // List
-            Expanded(
-              child: filtered.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.search_off_rounded,
-                            size: 40,
-                            color: colorScheme.onSurface.withValues(alpha: 0.3),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'No templates match "$_query"',
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.5),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : ListView.separated(
-                      controller: scrollController,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      itemCount: filtered.length,
-                      separatorBuilder: (context2, i2) => const Divider(
-                        height: 1,
-                        indent: 16,
-                        endIndent: 16,
-                      ),
-                      itemBuilder: (_, i) {
-                        final t = filtered[i];
-                        final cycleCount = t.cycles.length;
-                        return ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 4,
-                          ),
-                          title: Text(
-                            t.name,
-                            style: textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          subtitle: Text(
-                            '$cycleCount ${cycleCount == 1 ? 'exercise' : 'exercises'}',
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.55),
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 14,
-                            color: colorScheme.onSurface.withValues(alpha: 0.4),
-                          ),
-                          onTap: () => widget.onSelected(t),
-                        );
-                      },
+              // Search field
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search templates…',
+                    prefixIcon: const Icon(Icons.search, size: 20),
+                    filled: true,
+                    fillColor: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.5,
                     ),
-            ),
-          ],
-        ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: colorScheme.primary,
+                        width: 1.5,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
+                    isDense: true,
+                    suffixIcon: _query.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear, size: 18),
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _query = '');
+                            },
+                          )
+                        : null,
+                  ),
+                  onChanged: (v) => setState(() => _query = v),
+                ),
+              ),
+
+              const Divider(height: 1),
+
+              // List
+              Expanded(
+                child: filtered.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.search_off_rounded,
+                              size: 40,
+                              color: colorScheme.onSurface.withValues(
+                                alpha: 0.3,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'No templates match "$_query"',
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: colorScheme.onSurface.withValues(
+                                  alpha: 0.5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.separated(
+                        controller: scrollController,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        itemCount: filtered.length,
+                        separatorBuilder: (context2, i2) =>
+                            const Divider(height: 1, indent: 16, endIndent: 16),
+                        itemBuilder: (_, i) {
+                          final t = filtered[i];
+                          final cycleCount = t.cycles.length;
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 4,
+                            ),
+                            title: Text(
+                              t.name,
+                              style: textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '$cycleCount ${cycleCount == 1 ? 'exercise' : 'exercises'}',
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colorScheme.onSurface.withValues(
+                                  alpha: 0.55,
+                                ),
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 14,
+                              color: colorScheme.onSurface.withValues(
+                                alpha: 0.4,
+                              ),
+                            ),
+                            onTap: () => widget.onSelected(t),
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
         );
       },
     );
